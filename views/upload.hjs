@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publish</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/external_libs/jquery-timepicker-master/jquery.timepicker.css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="javascripts/upload/upload.js"></script>
+    <script src="external_libs/jquery-timepicker-master/jquery.timepicker.min.js"></script>
+</head>
+<body>
+<h1>Publish</h1>
+<form>
+    <p>Start Date:
+        <input type="text" id="startdatepicker" style="width: 80px"/>
+        End Date:
+        <input type="text" id="enddatepicker" style="width: 80px"/>
+        Time:
+        <input type="text" id="timepicker"/>
+    </p>
+    <p>Event:<br/>
+        <textarea id="event_textarea"></textarea>
+    </p>
+    <p>Event Type:
+        <input type="text"/>
+    </p>
+    <p>Location:
+        <input type="text"/>
+    </p>
+    <p>Department:
+        <input type="text"/>
+    </p>
+    <p>Website:
+        <input type="text"/>
+    </p>
+    <p>Image:
+        <input type="file"/>
+    </p>
+    <input type="submit" value="Upload!"/>
+</form>
+
+</body>
+</html>
