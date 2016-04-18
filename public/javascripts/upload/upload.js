@@ -1,7 +1,8 @@
 
 
 $(function() {
-    $( "#startdatepicker" ).datepicker();
-    $( "#enddatepicker" ).datepicker();
-    $('#timepicker').timepicker();
+    $( "#start-date-picker" ).datepicker();
+    $( "#end-date-picker" ).datepicker();
+    $('#start-time-picker').timepicker();
+    $('#end-time-picker').timepicker();
 });

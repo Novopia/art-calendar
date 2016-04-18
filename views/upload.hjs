@@ -9,36 +9,84 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="javascripts/upload/upload.js"></script>
     <script src="external_libs/jquery-timepicker-master/jquery.timepicker.min.js"></script>
+
+    <!--Bootstrap CDN-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Publish</h1>
-<form>
-    <p>Start Date:
-        <input type="text" id="startdatepicker" style="width: 80px"/>
-        End Date:
-        <input type="text" id="enddatepicker" style="width: 80px"/>
-        Time:
-        <input type="text" id="timepicker"/>
-    </p>
-    <p>Event:<br/>
-        <textarea id="event_textarea"></textarea>
-    </p>
-    <p>Event Type:
-        <input type="text"/>
-    </p>
-    <p>Location:
-        <input type="text"/>
-    </p>
-    <p>Department:
-        <input type="text"/>
-    </p>
-    <p>Website:
-        <input type="text"/>
-    </p>
-    <p>Image:
-        <input type="file"/>
-    </p>
-    <input type="submit" value="Upload!"/>
+<h1 class="text-center">Publish</h1>
+<form class="form-horizontal" action="upload/process" method="POST">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="start-date-picker">Start Date:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="start-date-picker" placeholder="Enter Start Date" name="start_date" style="width: 130px"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="start-time-picker">Start Time:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="start-time-picker" placeholder="Enter Start Time" name="start_time" style="width: 130px"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="end-date-picker">End Date:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="end-date-picker" placeholder="Enter End Date" name="end_date" style="width: 130px"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="end-time-picker">End Time:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="end-time-picker" placeholder="Enter End Time" name="end_time" style="width: 130px"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="event-textarea">Event:</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="event-textarea" name="event"></textarea>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="event-type">Event Type:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="event-type" name="event_type"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="location-field">Location:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="location-field" name="location"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="department-field">Department:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="department-field" name="department"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="website-field">Website:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="website-field" name="website"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
 </form>
 
 </body>
