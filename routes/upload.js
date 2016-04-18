@@ -4,7 +4,7 @@ var anyDB = require('any-db');
 var conn = anyDB.createConnection('sqlite3://../data/test.db');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedInMiddleware,function(req, res, next) {
     res.render('upload', { title: 'Uploading' });
 });
 
@@ -32,4 +32,20 @@ router.post('/process', function(req, res, next) {
     });
 });
 
+router.post('/logout', function(req, res, next) {
+    console.log("reached post logout");
+    req.session.destroy(function() {
+        res.redirect("/login");
+    });
+
+});
+function isLoggedInMiddleware(req, res, next) {
+    console.dir("req's userID is " + req.userId);
+    if (req.session.userId) {
+        next();
+    } else {
+        console.log("redirecting to login");
+        return res.redirect("/login");
+    }
+};
 module.exports = router;
