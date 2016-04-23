@@ -4,6 +4,15 @@
     <title>Login</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="javascripts/upload/upload.js"></script>
+    <style>
+        body {
+            padding: 2px;
+        }
+        .form-group {
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
 <h1 class="text-center">Login</h1>
