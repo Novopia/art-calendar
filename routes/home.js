@@ -3,10 +3,32 @@
  */
 var express = require('express');
 var router = express.Router();
-
+var anyDB = require('any-db');
+var conn = anyDB.createConnection('sqlite3://../data/test.db');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('front_end/home');
+});
+
+router.post('/:yearMonth', function(req, res, next) {
+    var yearMonth = req.params.yearMonth;
+    // e.g.: yearMonth is 201605
+    var start = yearMonth.concat("00");
+    var startDay = parseInt(start);
+    var end = yearMonth.concat("31");
+    var endDay = parseInt(end);
+    conn.query("SELECT * FROM calendar WHERE (start_date > $1 and start_date < $2) or (end_date > $3 and end_date < $4)",
+        [startDay, endDay, startDay, endDay], function(err, result){
+        var rowCount = result.rowCount;
+        console.log(rowCount);
+        if (rowCount == 0) {
+            res.json("No results for the month");
+        } else if (!err) {
+            res.json(result);
+        } else {
+            res.json("ERROR OCCURED!");
+        }
+    });
 });
 
 module.exports = router;

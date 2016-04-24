@@ -18,8 +18,9 @@ router.post('/process', function(req, res, next) {
         location = req.body.location,
         department = req.body.department,
         website = req.body.website;
+    start_date = normalizeDate(start_date);
+    end_date = normalizeDate(end_date);
     var row = [start_date, start_time, end_date, end_time, event, event_type, location, department, website];
-
     conn.query('INSERT INTO calendar VALUES (NULL, $1, $2, $3, $4, $5, $6, $7, $8, $9)', row, function (err) {
         if (err) {
             console.log('Failed to insert row in the database.');
@@ -48,4 +49,15 @@ function isLoggedInMiddleware(req, res, next) {
         return res.redirect("/login");
     }
 };
+
+function normalizeDate(date) {
+    // date is a string
+    var len = date.length;
+    var str1 = date.substring(len - 4, len);
+    var str2 = date.substring(0, 2);
+    var str3 = date.substring(3, 5);
+    var res = str1.concat(str2, str3);
+    var toReturn = parseInt(res);
+    return toReturn;
+}
 module.exports = router;

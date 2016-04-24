@@ -54,10 +54,17 @@ $(document).ready(function(){
 
 	for(var i = 1;i<=number;i++){
 		var h = $('.grid-'+i + ' .front').height();
-		console.log(h)
+		console.log(h);
 		$('.grid-'+i).height(h+12);
 		$('.grid-'+i + ' .back').height(h);
 	}
 
+	// NOTE: WHEN NEED TO QUERY events in database of a specific month,
+	// sends the following post request, and the month should be in format of the example.
+	// The example queries for all events in April of 2016.
+	
+	//$.post("/home/201604", function(responseJSON){
+	//	console.log("got here in 201604");
+	//});
 
 });

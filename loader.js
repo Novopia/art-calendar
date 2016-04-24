@@ -5,9 +5,9 @@ var conn = anyDB.createConnection('sqlite3://data/test.db');
 conn.query("DROP table IF EXISTS calendar");
 var sqlCreate = "CREATE TABLE calendar (" +
     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-    "start_date TEXT, " +
+    "start_date INTEGER, " +
     "start_time TEXT, " +
-    "end_date TEXT, " +
+    "end_date INTEGER, " +
     "end_time TEXT, " +
     "event_name TEXT, " +
     "event_type TEXT, " +
