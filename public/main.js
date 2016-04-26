@@ -62,7 +62,7 @@ $(document).ready(function(){
 	// NOTE: WHEN NEED TO QUERY events in database of a specific month,
 	// sends the following post request, and the month should be in format of the example.
 	// The example queries for all events in April of 2016.
-	
+
 	//$.post("/home/201604", function(responseJSON){
 	//	console.log("got here in 201604");
 	//});

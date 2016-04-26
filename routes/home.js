@@ -12,11 +12,17 @@ router.get('/', function(req, res, next) {
 
 router.post('/:yearMonth', function(req, res, next) {
     var yearMonth = req.params.yearMonth;
+    if (yearMonth.length != 6) {
+        res.json("ERROR: yearMonth has to be in the format of 201604");
+    }
     // e.g.: yearMonth is 201605
     var start = yearMonth.concat("00");
     var startDay = parseInt(start);
     var end = yearMonth.concat("31");
     var endDay = parseInt(end);
+    if (startDay == NaN || endDay == NaN) {
+        res.json("ERROR: yearMonth has to be in the format of 201604");
+    }
     conn.query("SELECT * FROM calendar WHERE (start_date > $1 and start_date < $2) or (end_date > $3 and end_date < $4)",
         [startDay, endDay, startDay, endDay], function(err, result){
         var rowCount = result.rowCount;

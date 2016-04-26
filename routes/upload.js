@@ -8,7 +8,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
     res.render('upload', { title: 'Uploading' });
 });
 
-router.post('/process', function(req, res, next) {
+router.post('/process', isLoggedInMiddleware, function(req, res, next) {
     var start_date = req.body.start_date,
         start_time = req.body.start_time,
         end_date = req.body.end_date,
