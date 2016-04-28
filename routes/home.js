@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var anyDB = require('any-db');
-var conn = anyDB.createConnection('sqlite3://../data/test.db');
+var conn = anyDB.createConnection('sqlite3://data/test.db');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('front_end/home');
