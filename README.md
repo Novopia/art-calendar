@@ -7,10 +7,10 @@ node bin/www
 
 #View:
 
-home:
+* home:
 
 localhost:3000/home
 
-upload:
+* upload:
 
 localhost"3000/upload
