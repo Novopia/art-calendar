@@ -3,31 +3,26 @@ var router = express.Router();
 var anyDB = require('any-db');
 var conn = anyDB.createConnection('sqlite3://data/test.db');
 
-router.post('/image', isLoggedInMiddleware, function(req, res, next) {
-    var sampleFile;
-
-    if (!req.files) {
-        res.send('No files were uploaded.');
-        return;
-    }
-
-    sampleFile = req.files.sampleFile;
-    sampleFile.mv('public/images/image1.jpg', function(err) {
-        if (err) {
-            res.status(500).send(err);
-        }
-        else {
-            res.send('File uploaded!');
-        }
-    });
-});
-
 /* GET home page. */
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
     res.render('upload', { title: 'Uploading' });
 });
 
 router.post('/process', isLoggedInMiddleware, function(req, res, next) {
+
+    var sampleFile;
+    if (!req.files) {
+        res.send('No files were uploaded.');
+        return;
+    }
+    sampleFile = req.files.sampleFile;
+    sampleFile.mv('public/images/image1.jpg', function(err) {
+        if (err) {
+            res.redirect("/upload-failure");
+        }
+    });
+
+
     var start_date = req.body.start_date,
         start_time = req.body.start_time,
         end_date = req.body.end_date,
@@ -50,6 +45,8 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
             res.redirect("/upload-success");
         }
     });
+
+
 });
 
 
