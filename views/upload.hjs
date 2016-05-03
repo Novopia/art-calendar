@@ -89,6 +89,15 @@
     </div>
 </form>
 
+<form ref='uploadForm'
+      id='uploadForm'
+      action='upload/image'
+      method='post'
+      encType="multipart/form-data">
+    <input type="file" accept="image/gif, image/jpeg, image/png" name="sampleFile" />
+    <input type='submit' value='Upload the image' />
+</form>
+
 <form method="POST" action="upload/logout">
 <button type="submit">Log out</button>
 </form>

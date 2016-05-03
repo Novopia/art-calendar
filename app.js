@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require("express-session");
 var bodyParser = require('body-parser');
+var fileUpload = require('express-fileupload');
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(fileUpload());
 
 // Enable session management using express middleware
 app.use(session({
