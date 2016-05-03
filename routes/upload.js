@@ -8,19 +8,20 @@ var sharp = require('sharp');
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
     //res.render('upload', { title: 'Uploading' });
 
-    types1 = ['Dance', 'Film', 'Literary_Art', 'Media Arts', 'Music', 'Theatre', 'Visual Art', 'Artist talk'];
+    types1 = ['Dance', 'Film', 'Literary_Art', 'Media Arts', 'Music', 
+              'Theatre', 'Visual Art', 'Artist talk', 'Exhibit', 'Conference', 
+              'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
     var renderArr1 = [];
     for (i in types1) {
         renderArr1.push({'type' : types1[i]})
     }
 
 
-    types2 = ['Exhibit', 'Conference', 'Lecture', 'Performance',
-        'Reading', 'Screening', 'Symposium'];
-    var renderArr2 = [];
-    for (i in types2) {
-        renderArr2.push({'type' : types2[i]})
-    }
+    // types2 = [];
+    // var renderArr2 = [];
+    // for (i in types2) {
+    //     renderArr2.push({'type' : types2[i]})
+    // }
 
 
     location = ['Science Library', 'Rock', 'CIT', 'Pembroke', 'Other'];
@@ -29,7 +30,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
         renderArr3.push({'location' : location[i]})
     }
 
-    res.render("upload", {"event_types1" : renderArr1, "event_types2" : renderArr2, "usual_loc" : renderArr3 } );
+    res.render("upload", {"event_types1" : renderArr1,/* "event_types2" : renderArr2,*/ "usual_loc" : renderArr3 } );
 });
 
 router.post('/process', isLoggedInMiddleware, function(req, res, next) {

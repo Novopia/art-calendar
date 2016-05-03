@@ -64,14 +64,14 @@
         <label class="control-label col-sm-2">Event Type:</label>
             {{#event_types1}}
                 <label class="btn btn-primary">
-                    <input type="radio" name="event_type" value="{{type}}"> {{type}} </input>
+                    <input type="radio" name="event_type" value="{{type}}" id="myRadio1"> {{type}} </input>
                 </label>
             {{/event_types1}}
-            {{#event_types2}}
+<!--             {{#event_types2}}
                  <label class="btn btn-primary">
-                    <input type="radio" name="event_type" value="{{type}}"> {{type}} </input>
+                    <input type="radio" name="event_type" value="{{type}}" id="myRadio2"> {{type}} </input>
                 </label>
-            {{/event_types2}}
+            {{/event_types2}} -->
     </div>
 
 
@@ -110,7 +110,25 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" id="mySubmitButton" disabled>Submit</button>
+            <script>
+            var $input = $('input:text, input:file, #event-textarea');
+            var $mySubmitButton = $('#mySubmitButton');
+            $input.bind("change keyup", function() {
+                var trigger = false;
+                $input.each(function() {
+                    if (!$(this).val()) {
+                        trigger = true;
+                    }
+                });
+                if (trigger){
+                    document.getElementById("mySubmitButton").disabled = true;
+                } else {
+                    document.getElementById("mySubmitButton").disabled = false;
+                }
+            });
+
+            </script>
         </div>
     </div>
 </form>
