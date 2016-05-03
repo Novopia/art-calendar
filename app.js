@@ -9,7 +9,6 @@ var fileUpload = require('express-fileupload');
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var upload = require('./routes/upload');
 var login = require('./routes/login');
 var home = require('./routes/home');
@@ -38,7 +37,6 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/upload', upload);
 app.use('/login', login);
 app.use('/home', home);
