@@ -47,25 +47,44 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="event-textarea">Event:</label>
+        <label class="control-label col-sm-2" for="event-title">Event Title:</label>
         <div class="col-sm-10">
-            <textarea class="form-control" id="event-textarea" name="event"></textarea>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="event-type">Event Type:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="event-type" name="event_type"></input>
+            <input type="text" class="form-control" id="event-title" name="event_title"></input>
         </div>
     </div>
 
     <div class="form-group">
+        <label class="control-label col-sm-2" for="event-textarea">Event Description:</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="event-textarea" name="event_description"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group" data-toggle="buttons">
+        <label class="control-label col-sm-2">Event Type:</label>
+            {{#event_types1}}
+                <label class="btn btn-primary">
+                    <input type="radio" name="event_type" value="{{type}}"> {{type}} </input>
+                </label>
+            {{/event_types1}}
+            {{#event_types2}}
+                 <label class="btn btn-primary">
+                    <input type="radio" name="event_type" value="{{type}}"> {{type}} </input>
+                </label>
+            {{/event_types2}}
+    </div>
+
+
+    <div class="form-group" data-toggle="buttons">
         <label class="control-label col-sm-2" for="location-field">Location:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="location-field" name="location"></input>
-        </div>
+                {{#usual_loc}}
+                <label class="btn btn-primary">
+                    <input type="radio" name="location" value="{{location}}"> {{location}} </input>
+                </label>
+                {{/usual_loc}}
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="location-field" name="location" width="130px"></input>
+                </div>
     </div>
 
     <div class="form-group">
