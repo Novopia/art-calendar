@@ -16,13 +16,30 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
         renderArr1.push({'type' : types1[i]})
     }
 
-    location = ['Science Library', 'Rock', 'CIT', 'Pembroke', 'Other'];
-    var renderArr3 = [];
-    for (i in location) {
-        renderArr3.push({'location' : location[i]})
-    }
+    location = [];
+    conn.query("SELECT DISTINCT location, COUNT(*) FROM calendar GROUP BY location ORDER BY COUNT(*) DESC",
+        [], function(err, result){
+            var rowCount = result.rowCount;
+            console.log(rowCount);
+            if (rowCount == 0) {
+                console.log("No locations");
+            } else if (!err) {
+                var rows = result['rows'];
+                console.log(rows);
+                for (var i in rows) {
+                    location.push(rows[i]['location'])
+                }
+                var renderArr3 = [];
+                for (i in location) {
+                    renderArr3.push({'location' : location[i]})
+                }
+                res.render("upload", {"event_types1" : renderArr1, "usual_loc" : renderArr3 } );
 
-    res.render("upload", {"event_types1" : renderArr1, "usual_loc" : renderArr3 } );
+            } else {
+                console.log("ERROR OCCURED!");
+            }
+        });
+
 });
 
 router.post('/process', isLoggedInMiddleware, function(req, res, next) {
