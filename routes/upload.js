@@ -16,21 +16,13 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
         renderArr1.push({'type' : types1[i]})
     }
 
-
-    // types2 = [];
-    // var renderArr2 = [];
-    // for (i in types2) {
-    //     renderArr2.push({'type' : types2[i]})
-    // }
-
-
     location = ['Science Library', 'Rock', 'CIT', 'Pembroke', 'Other'];
     var renderArr3 = [];
     for (i in location) {
         renderArr3.push({'location' : location[i]})
     }
 
-    res.render("upload", {"event_types1" : renderArr1,/* "event_types2" : renderArr2,*/ "usual_loc" : renderArr3 } );
+    res.render("upload", {"event_types1" : renderArr1, "usual_loc" : renderArr3 } );
 });
 
 router.post('/process', isLoggedInMiddleware, function(req, res, next) {
@@ -42,14 +34,24 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
         event_description = req.body.event_description,
         event_type = req.body.event_type,
         location = req.body.location,
+        other_location = req.body.other_location,
         department = req.body.department,
         website = req.body.website;
+
+
+    console.log(location);
+    console.log(other_location);
+
+    if (location == "Other") {
+        location = other_location
+    }
 
     var sampleFile;
     if (!req.files) {
         res.send('No files were uploaded.');
         return;
     }
+
     sampleFile = req.files.sampleFile;
     console.log(sampleFile);
     console.log(event_type);
