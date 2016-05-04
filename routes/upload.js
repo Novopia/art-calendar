@@ -17,7 +17,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
     }
 
     location = [];
-    conn.query("SELECT DISTINCT location, COUNT(*) FROM calendar GROUP BY location ORDER BY COUNT(*) DESC",
+    conn.query("SELECT DISTINCT location, COUNT(*) FROM calendar GROUP BY location ORDER BY COUNT(*) DESC LIMIT 5",
         [], function(err, result){
             var rowCount = result.rowCount;
             console.log(rowCount);
