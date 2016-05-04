@@ -35,6 +35,20 @@ router.post('/:yearMonth', function(req, res, next) {
         });
 });
 
+router.post('/:word', function(req, res, next) {
+    var word = req.params.word;
+    conn.query("SELECT * FROM calendar WHERE event_title LIKE $1", ["%"+word+"%"], function (err, result) {
+        var rowCount = result.rowCount;
+        console.log(rowCount);
+        if (rowCount == 0) {
+            res.json("No results");
+        } else if (!err) {
+            res.json(result);
+        } else {
+            res.json("ERROR OCCURED!");
+        }
+    });
+});
 
 router.get('/upload-success', function(reg, res, next) {
     //console.log("upload-success");
