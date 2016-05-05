@@ -4,6 +4,7 @@
     <title>Login</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="js/md5.min.js"></script>
     <script src="javascripts/upload/upload.js"></script>
     <style>
         body {

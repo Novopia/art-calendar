@@ -73,6 +73,19 @@ $(document).ready(function(){
 	//	console.log("got here in 201604");
 	//});
 
+
+    // NOTE: WHEN NEED TO SEARCH, assign phrases to searchMsg. In the example, it searches for
+    // all entries(event_title, event_type, location, department, event_descripltion) that contains
+    // an exact match of union square(case insensitive). Note that this is an exact match.
+    // An entry with title such as "Square of Labor Union" will not be found by this search.
+
+    // e.g.:
+    //var searchMsg = "Union Square";
+    //var toSend = {searchMsg: searchMsg};
+    //$.post("/search", toSend, function(){
+    //   //console.log("got here in search Union Square");
+    //});
+
 	$('.front').css("height","auto","width","240px");
 
 
