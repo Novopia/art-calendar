@@ -28,7 +28,9 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
             console.log(rowCount);
             if (rowCount == 0) {
                 console.log("No locations");
-                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2 } );
+                var renderArr3 = [];
+                renderArr3.push({'location': 'Other (Type New Location)'});
+                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
             } else if (!err) {
                 var rows = result['rows'];
                 console.log(rows);
@@ -39,7 +41,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
                 for (i in location) {
                     renderArr3.push({'location' : location[i]})
                 }
-                renderArr3.push({'location': 'Other (Type New Location)'})
+                renderArr3.push({'location': 'Other (Type New Location)'});
                 res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
 
             } else {
@@ -65,7 +67,7 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
 
     var event_type = event_type1 + " " + event_type2;
 
-    if (location == "Other") {
+    if (location == "Other (Type New Location)") {
         location = other_location
     }
 
