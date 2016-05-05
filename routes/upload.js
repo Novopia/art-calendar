@@ -9,17 +9,18 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
     //res.render('upload', { title: 'Uploading' });
 
     types1 = ['Dance', 'Film', 'Lit_Art', 'Media_Arts', 'Music',
-              'Theatre', 'Vis_Art'];
-    types2 = ['Artist_Talk', 'Exhibit', 'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
+              'Theatre', 'Vis_Art', 'Artist_Talk', 'Exhibit', 
+              'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
+    // types2 = ['Artist_Talk', 'Exhibit', 'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
     var renderArr1 = [];
     for (i in types1) {
         renderArr1.push({'type' : types1[i]})
     }
 
-    var renderArr2 = [];
-    for (i in types1) {
-        renderArr2.push({'type' : types2[i]})
-    }
+    // var renderArr2 = [];
+    // for (i in types1) {
+    //     renderArr2.push({'type' : types2[i]})
+    // }
 
     location = [];
     conn.query("SELECT DISTINCT location, COUNT(*) FROM calendar GROUP BY location ORDER BY COUNT(*) DESC LIMIT 5",
@@ -30,7 +31,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
                 console.log("No locations");
                 var renderArr3 = [];
                 renderArr3.push({'location': 'Other (Type New Location)'});
-                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
+                res.render("upload", {"event_types1" : renderArr1, /*"event_types2": renderArr2,*/ "usual_loc" : renderArr3 } );
             } else if (!err) {
                 var rows = result['rows'];
                 console.log(rows);
@@ -42,7 +43,7 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
                     renderArr3.push({'location' : location[i]})
                 }
                 renderArr3.push({'location': 'Other (Type New Location)'});
-                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
+                res.render("upload", {"event_types1" : renderArr1, /*"event_types2": renderArr2,*/ "usual_loc" : renderArr3 } );
 
             } else {
                 console.log("ERROR OCCURED!");
