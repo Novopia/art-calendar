@@ -142,7 +142,8 @@
                 var trigger = false;
                 $input.each(function() {
                     if ((!$(this).val()) && 
-                        ($(this).attr('id') != "website-field")) {
+                        ($(this).attr('id') != "website-field") && 
+                        ($(this).attr('id') != "department-field")) {
                         trigger = true;
                     }
                 });
