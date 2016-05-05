@@ -462,7 +462,7 @@ input:-ms-input-placeholder {
   background-color: rgba(152,193,217,0.0); 
   color:white;
   z-index: 1;
-  transition: 0.2s ease-out;
+  display: none;
 }
 
 .months{
