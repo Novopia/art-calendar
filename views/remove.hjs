@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="javascripts/remove/remove.js"></script>
+</head>
+<body>
+<h1>remove events from database</h1>
+<div>
+    <form class="form-horizontal" id="getEvent" method="POST" action="remove/eventList">
+        <button class='btn btn-default' type="submit">Get Event List</button>
+    </form>
+    <ul id="eventList"></ul>
+</div>
+<form class="form-horizontal" id="removeEvent" method="POST" action="remove/delete">
+<div class="form-group">
+    <label for="idToRemove">event to remove</label>
+    <input type="text" class="form-control" id="idToRemove" name="idToRemove" placeholder="id of the event">
+    <button class='btn btn-default' type="submit">Remove</button>
+</div>
+</form>
+<p id="deleteMsgStatus"></p>
+</body>
+</html>
