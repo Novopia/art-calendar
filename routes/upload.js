@@ -126,8 +126,10 @@ function isLoggedInMiddleware(req, res, next) {
     if (req.session.userId) {
         next();
     } else {
+        // so after login, it knows to redirect by here to upload.
+        req.session.action = "upload";
         console.log("redirecting to login");
-        return res.redirect("/login");
+        return res.redirect("/login/upload");
     }
 };
 
