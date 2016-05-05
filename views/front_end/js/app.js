@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 
+
 	setTimeout(function(){
 	  $("#cover").remove();
 	}, 2000);

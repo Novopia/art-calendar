@@ -56,6 +56,13 @@ $(document).ready(function(){
 	});
   	
 
+		$('body').click(function(){
+		$.post("/search/beer", function(responseJSON){
+			console.log(responseJSON);
+			data = JSON.parse(responseJSON);
+			console.log(data);
+		})
+	})
 
   	
 	// NOTE: WHEN NEED TO QUERY events in database of a specific month,
