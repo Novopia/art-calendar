@@ -8,12 +8,17 @@ var sharp = require('sharp');
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
     //res.render('upload', { title: 'Uploading' });
 
-    types1 = ['Dance', 'Film', 'Literary_Art', 'Media Arts', 'Music', 
-              'Theatre', 'Visual Art', 'Artist talk', 'Exhibit', 'Conference', 
-              'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
+    types1 = ['Dance', 'Film', 'Lit._Art', 'Media_Arts', 'Music',
+              'Theatre', 'Vis._Art'];
+    types2 = ['Artist_Talk', 'Exhibit', 'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
     var renderArr1 = [];
     for (i in types1) {
         renderArr1.push({'type' : types1[i]})
+    }
+
+    var renderArr2 = [];
+    for (i in types1) {
+        renderArr2.push({'type' : types2[i]})
     }
 
     location = [];
@@ -23,6 +28,9 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
             console.log(rowCount);
             if (rowCount == 0) {
                 console.log("No locations");
+                var renderArr3 = [];
+                renderArr3.push({'location': 'Other (Type New Location)'});
+                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
             } else if (!err) {
                 var rows = result['rows'];
                 console.log(rows);
@@ -33,7 +41,8 @@ router.get('/', isLoggedInMiddleware,function(req, res, next) {
                 for (i in location) {
                     renderArr3.push({'location' : location[i]})
                 }
-                res.render("upload", {"event_types1" : renderArr1, "usual_loc" : renderArr3 } );
+                renderArr3.push({'location': 'Other (Type New Location)'});
+                res.render("upload", {"event_types1" : renderArr1, "event_types2": renderArr2, "usual_loc" : renderArr3 } );
 
             } else {
                 console.log("ERROR OCCURED!");
@@ -49,17 +58,16 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
         end_time = req.body.end_time,
         event_title = req.body.event_title,
         event_description = req.body.event_description,
-        event_type = req.body.event_type,
+        event_type1 = req.body.event_type1,
+        event_type2 = req.body.event_type2,
         location = req.body.location,
         other_location = req.body.other_location,
         department = req.body.department,
         website = req.body.website;
 
+    var event_type = event_type1 + " " + event_type2;
 
-    console.log(location);
-    console.log(other_location);
-
-    if (location == "Other") {
+    if (location == "Other (Type New Location)") {
         location = other_location
     }
 
