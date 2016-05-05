@@ -69,16 +69,18 @@
             {{/event_types1}}
     </div>
 
-<!--     <div class="form-group" data-toggle="buttons">
+    <input type="hidden" id="eventType1ButtonValue">
+
+    <div class="form-group" data-toggle="buttons">
         <label class="control-label col-sm-2">Event Type2:</label>
         {{#event_types2}}
         <label class="btn btn-primary">
             <input type="radio" name="event_type2" value="{{type}}" id="myRadio2"> {{type}} </input>
         </label>
         {{/event_types2}}
-    </div> -->
+    </div>
 
-    <input type="hidden" id="eventTypeButtonValue">
+    <input type="hidden" id="eventType2ButtonValue">
 
     <div class="form-group" data-toggle="buttons">
         <label class="control-label col-sm-2" for="location-field">Location:</label>
@@ -90,7 +92,6 @@
         <input type="hidden" id="location-field" name="other_location" style="width: 200px"></input>
     </div>
 
-    <!-- <input type="hidden" id="eventLocationButtonValue"> -->
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="department-field">Department/Organization:</label>
@@ -119,8 +120,14 @@
             <script>
             var $eventType = $("[name='event_type1']");
             $eventType.change(function(){
-                $('#eventTypeButtonValue').val($(this).val());
-                $("#location-field").trigger("change");
+                $('#eventType1ButtonValue').val($(this).val());
+                $("#eventType1ButtonValue").trigger("change");
+            });
+
+            var $eventType = $("[name='event_type2']");
+            $eventType.change(function(){
+                $('#eventType2ButtonValue').val($(this).val());
+                $("#eventType2ButtonValue").trigger("change");
             });
            
             var $eventLocation = $("[name='location']");
@@ -136,7 +143,7 @@
                 }
             });
 
-            var $input = $('input:text, input:file, #event-textarea, #eventTypeButtonValue, #location-field');
+            var $input = $('input:text, input:file, #event-textarea, #eventType1ButtonValue, #eventType2ButtonValue, #location-field');
             var $mySubmitButton = $('#mySubmitButton');
             $input.bind("change keyup", function() {
                 var trigger = false;
