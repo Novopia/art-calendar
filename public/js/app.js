@@ -29,8 +29,11 @@ $(document).ready(function(){
 	width += "px"
 	$('#cards').css('width',width);
 	$('#month').css('margin-left',margin);
+
+	$('#month').css('display','block');
 	$('#filter').css('margin-right', margin);
 	$('#filter_content').css('right', margin);
+	$('#month').css('transition','0.2s ease-out');
 
 
 	$( window ).resize(function() {
