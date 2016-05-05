@@ -21,7 +21,7 @@ router.post('/month/:yearMonth', function(req, res, next) {
     if (startDay == NaN || endDay == NaN) {
         res.json("ERROR: yearMonth has to be in the format of 201604");
     }
-    conn.query("SELECT * FROM calendar WHERE (start_date > $1 and start_date < $2) or (end_date > $3 and end_date < $4)",
+    conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4)",
         [startDay, endDay, startDay, endDay], function(err, result){
             var rowCount = result.rowCount;
             console.log(rowCount);
@@ -35,11 +35,18 @@ router.post('/month/:yearMonth', function(req, res, next) {
         });
 });
 
-router.post('/search/:word', function(req, res, next) {
-    var word = req.params.word;
-    conn.query("SELECT * FROM calendar WHERE event_title LIKE $1", ["%"+word+"%"], function (err, result) {
+router.post('/search', function(req, res, next) {
+    //var word = req.params.word;
+    var searchMsg = req.body.searchMsg;
+    var toDB = "%"+searchMsg+"%";
+    // COLLATE UTF8_GENERAL_CI should make search case insensitive.
+    conn.query("SELECT * FROM calendar WHERE event_title COLLATE UTF8_GENERAL_CI LIKE $1 UNION " +
+        "SELECT * FROM calendar WHERE event_description COLLATE UTF8_GENERAL_CI LIKE $2 UNION " +
+        "SELECT * FROM calendar WHERE event_type COLLATE UTF8_GENERAL_CI LIKE $3 UNION " +
+        "SELECT * FROM calendar WHERE location COLLATE UTF8_GENERAL_CI LIKE $4 UNION " +
+        "SELECT * FROM calendar WHERE department COLLATE UTF8_GENERAL_CI LIKE $5", [toDB, toDB, toDB, toDB, toDB], function (err, result) {
         var rowCount = result.rowCount;
-        console.log(rowCount);
+        console.log("there are " + rowCount + "search results");
         if (rowCount == 0) {
             res.json("No results");
         } else if (!err) {
