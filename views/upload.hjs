@@ -19,8 +19,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 class="text-center">Publish</h1>
-<form class="form-horizontal" action="upload/process" method="POST">
+<h1 class="text-center">Publish New Event</h1>
+<form class="form-horizontal" action="upload/process" method="POST" encType="multipart/form-data">
     <div class="form-group">
         <label class="control-label col-sm-2" for="start-date-picker">Start Date:</label>
         <div class="col-sm-10">
@@ -83,14 +83,22 @@
     </div>
 
     <div class="form-group">
+        <label class="control-label col-sm-2">Picture:</label>
+        <div class="col-sm-10">
+            <input type="file" accept="image/gif, image/jpeg, image/png" name="sampleFile" />
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Submit</button>
         </div>
     </div>
 </form>
 
-<form method="POST" action="upload/logout">
-<button type="submit">Log out</button>
+
+<form class="form-horizontal" method="POST" action="upload/logout">
+    <button class='btn btn-default' type="submit">Log out</button>
 </form>
 
 </body>

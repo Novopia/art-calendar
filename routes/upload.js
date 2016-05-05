@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var anyDB = require('any-db');
 var conn = anyDB.createConnection('sqlite3://data/test.db');
+var sharp = require('sharp');
 
 /* GET home page. */
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
@@ -18,6 +19,26 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
         location = req.body.location,
         department = req.body.department,
         website = req.body.website;
+
+    var sampleFile;
+    if (!req.files) {
+        res.send('No files were uploaded.');
+        return;
+    }
+    sampleFile = req.files.sampleFile;
+    imagePath = "public/images/image_" + start_time + "_" + event + "_original.jpg";
+    smallImagePath = "public/images/image_" + start_time + "_" + event + ".jpg";
+    sampleFile.mv(imagePath, function(err) {
+        if (err) {
+            res.redirect("/upload-failure");
+        } else {
+            sharp(imagePath)
+                .resize(240)
+                .toFile(smallImagePath, function(err) {
+                });
+        }
+    });
+
     start_date = normalizeDate(start_date);
     end_date = normalizeDate(end_date);
     var row = [start_date, start_time, end_date, end_time, event, event_type, location, department, website];
@@ -31,7 +52,11 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
             res.redirect("/upload-success");
         }
     });
+
+
 });
+
+
 
 router.post('/logout', function(req, res, next) {
     console.log("reached post logout");
