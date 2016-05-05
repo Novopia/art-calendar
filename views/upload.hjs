@@ -47,25 +47,36 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="event-textarea">Event:</label>
+        <label class="control-label col-sm-2" for="event-title">Event Title:</label>
         <div class="col-sm-10">
-            <textarea class="form-control" id="event-textarea" name="event"></textarea>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="event-type">Event Type:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="event-type" name="event_type"></input>
+            <input type="text" class="form-control" id="event-title" name="event_title"></input>
         </div>
     </div>
 
     <div class="form-group">
+        <label class="control-label col-sm-2" for="event-textarea">Event Description:</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="event-textarea" name="event_description"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group" data-toggle="buttons">
+        <label class="control-label col-sm-2">Event Type:</label>
+            {{#event_types1}}
+                <label class="btn btn-primary">
+                    <input type="radio" name="event_type" value="{{type}}" id="myRadio1"> {{type}} </input>
+                </label>
+            {{/event_types1}}
+    </div>
+
+    <div class="form-group" data-toggle="buttons">
         <label class="control-label col-sm-2" for="location-field">Location:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="location-field" name="location"></input>
-        </div>
+                {{#usual_loc}}
+                <label class="btn btn-primary">
+                    <input type="radio" name="location" value="{{location}}"> {{location}} </input>
+                </label>
+                {{/usual_loc}}
+        <input type="text" id="location-field" name="other_location" style="width: 200px"></input>
     </div>
 
     <div class="form-group">
@@ -91,7 +102,25 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" id="mySubmitButton" disabled>Submit</button>
+            <script>
+            var $input = $('input:text, input:file, #event-textarea');
+            var $mySubmitButton = $('#mySubmitButton');
+            $input.bind("change keyup", function() {
+                var trigger = false;
+                $input.each(function() {
+                    if (!$(this).val()) {
+                        trigger = true;
+                    }
+                });
+                if (trigger){
+                    document.getElementById("mySubmitButton").disabled = true;
+                } else {
+                    document.getElementById("mySubmitButton").disabled = false;
+                }
+            });
+
+            </script>
         </div>
     </div>
 </form>

@@ -9,7 +9,8 @@ var sqlCreate = "CREATE TABLE calendar (" +
     "start_time TEXT, " +
     "end_date INTEGER, " +
     "end_time TEXT, " +
-    "event_name TEXT, " +
+    "event_title TEXT, " +
+    "event_description TEXT, " +
     "event_type TEXT, " +
     "location TEXT, " +
     "department TEXT," +

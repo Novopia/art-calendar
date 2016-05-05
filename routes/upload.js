@@ -6,7 +6,40 @@ var sharp = require('sharp');
 
 /* GET home page. */
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
-    res.render('upload', { title: 'Uploading' });
+    //res.render('upload', { title: 'Uploading' });
+
+    types1 = ['Dance', 'Film', 'Literary_Art', 'Media Arts', 'Music', 
+              'Theatre', 'Visual Art', 'Artist talk', 'Exhibit', 'Conference', 
+              'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
+    var renderArr1 = [];
+    for (i in types1) {
+        renderArr1.push({'type' : types1[i]})
+    }
+
+    location = [];
+    conn.query("SELECT DISTINCT location, COUNT(*) FROM calendar GROUP BY location ORDER BY COUNT(*) DESC LIMIT 5",
+        [], function(err, result){
+            var rowCount = result.rowCount;
+            console.log(rowCount);
+            if (rowCount == 0) {
+                console.log("No locations");
+            } else if (!err) {
+                var rows = result['rows'];
+                console.log(rows);
+                for (var i in rows) {
+                    location.push(rows[i]['location'])
+                }
+                var renderArr3 = [];
+                for (i in location) {
+                    renderArr3.push({'location' : location[i]})
+                }
+                res.render("upload", {"event_types1" : renderArr1, "usual_loc" : renderArr3 } );
+
+            } else {
+                console.log("ERROR OCCURED!");
+            }
+        });
+
 });
 
 router.post('/process', isLoggedInMiddleware, function(req, res, next) {
@@ -14,20 +47,33 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
         start_time = req.body.start_time,
         end_date = req.body.end_date,
         end_time = req.body.end_time,
-        event = req.body.event,
+        event_title = req.body.event_title,
+        event_description = req.body.event_description,
         event_type = req.body.event_type,
         location = req.body.location,
+        other_location = req.body.other_location,
         department = req.body.department,
         website = req.body.website;
+
+
+    console.log(location);
+    console.log(other_location);
+
+    if (location == "Other") {
+        location = other_location
+    }
 
     var sampleFile;
     if (!req.files) {
         res.send('No files were uploaded.');
         return;
     }
+
     sampleFile = req.files.sampleFile;
-    imagePath = "public/images/image_" + start_time + "_" + event + "_original.jpg";
-    smallImagePath = "public/images/image_" + start_time + "_" + event + ".jpg";
+    console.log(sampleFile);
+    console.log(event_type);
+    imagePath = "public/images/image_" + start_time + "_" + event_title + "_original.jpg";
+    smallImagePath = "public/images/image_" + start_time + "_" + event_title + ".jpg";
     sampleFile.mv(imagePath, function(err) {
         if (err) {
             res.redirect("/upload-failure");
@@ -41,8 +87,8 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
 
     start_date = normalizeDate(start_date);
     end_date = normalizeDate(end_date);
-    var row = [start_date, start_time, end_date, end_time, event, event_type, location, department, website];
-    conn.query('INSERT INTO calendar VALUES (NULL, $1, $2, $3, $4, $5, $6, $7, $8, $9)', row, function (err) {
+    var row = [start_date, start_time, end_date, end_time, event_title, event_description, event_type, location, department, website];
+    conn.query('INSERT INTO calendar VALUES (NULL, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', row, function (err) {
         if (err) {
             console.log('Failed to insert row in the database.');
             console.error(err);
@@ -52,7 +98,6 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
             res.redirect("/upload-success");
         }
     });
-
 
 });
 
