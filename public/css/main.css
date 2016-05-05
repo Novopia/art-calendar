@@ -291,6 +291,16 @@ nav ul li a:hover{
 }
 
 
+.front img,p,hr,i,span{
+	backface-visibility: hidden;
+}
+
+
+.back img,p,hr,i,span{
+	backface-visibility: hidden;
+}
+
+
 
 
 

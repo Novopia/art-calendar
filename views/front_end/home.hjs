@@ -4,7 +4,6 @@
 
 <title>Brown Art Events</title>
 
-<script src="javascripts/masonry.pkgd.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -13,11 +12,10 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-<script src="javascripts/flip.js"></script>
-
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
-<script src="javascripts/main.js"></script>
+<script src="javascripts/masonry.pkgd.min.js"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
 
@@ -408,6 +406,9 @@ Sponsored by Creative Arts Council and John Nicholas Brown Center for Public Hum
 	</div>
 
 
+	<script src="javascripts/main.js"></script>
+
+	<script src="javascripts/flip.js"></script>
 
 
 </body>

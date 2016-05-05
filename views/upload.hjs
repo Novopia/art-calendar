@@ -61,12 +61,21 @@
     </div>
 
     <div class="form-group" data-toggle="buttons">
-        <label class="control-label col-sm-2">Event Type:</label>
+        <label class="control-label col-sm-2">Event Type1:</label>
             {{#event_types1}}
                 <label class="btn btn-primary">
-                    <input type="radio" name="event_type" value="{{type}}" id="myRadio1"> {{type}} </input>
+                    <input type="radio" name="event_type1" value="{{type}}" id="myRadio1"> {{type}} </input>
                 </label>
             {{/event_types1}}
+    </div>
+
+    <div class="form-group" data-toggle="buttons">
+        <label class="control-label col-sm-2">Event Type2:</label>
+        {{#event_types2}}
+        <label class="btn btn-primary">
+            <input type="radio" name="event_type2" value="{{type}}" id="myRadio2"> {{type}} </input>
+        </label>
+        {{/event_types2}}
     </div>
 
     <div class="form-group" data-toggle="buttons">
@@ -80,14 +89,14 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="department-field">Department:</label>
+        <label class="control-label col-sm-2" for="department-field">Department/Organization:</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="department-field" name="department"></input>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="website-field">Website:</label>
+        <label class="control-label col-sm-2" for="website-field">Event Website Link:</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="website-field" name="website"></input>
         </div>

@@ -10,6 +10,6 @@ window.addEventListener('load', function(){
 $(function() {
     $( "#start-date-picker" ).datepicker();
     $( "#end-date-picker" ).datepicker();
-    $('#start-time-picker').timepicker();
-    $('#end-time-picker').timepicker();
+    $('#start-time-picker').timepicker({'timeFormat': 'H:i'});
+    $('#end-time-picker').timepicker({'timeFormat': 'H:i'});
 });

@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
     res.render('front_end/home');
 });
 
-router.post('/:yearMonth', function(req, res, next) {
+router.post('/month/:yearMonth', function(req, res, next) {
     var yearMonth = req.params.yearMonth;
     if (yearMonth.length != 6) {
         res.json("ERROR: yearMonth has to be in the format of 201604");
@@ -35,7 +35,7 @@ router.post('/:yearMonth', function(req, res, next) {
         });
 });
 
-router.post('/:word', function(req, res, next) {
+router.post('/search/:word', function(req, res, next) {
     var word = req.params.word;
     conn.query("SELECT * FROM calendar WHERE event_title LIKE $1", ["%"+word+"%"], function (err, result) {
         var rowCount = result.rowCount;
