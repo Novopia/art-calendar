@@ -8,8 +8,8 @@ var sharp = require('sharp');
 router.get('/', isLoggedInMiddleware,function(req, res, next) {
     //res.render('upload', { title: 'Uploading' });
 
-    types1 = ['Dance', 'Film', 'Lit._Art', 'Media_Arts', 'Music',
-              'Theatre', 'Vis._Art'];
+    types1 = ['Dance', 'Film', 'Lit_Art', 'Media_Arts', 'Music',
+              'Theatre', 'Vis_Art'];
     types2 = ['Artist_Talk', 'Exhibit', 'Lecture', 'Performance', 'Reading', 'Screening', 'Symposium'];
     var renderArr1 = [];
     for (i in types1) {
@@ -80,8 +80,10 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
     sampleFile = req.files.sampleFile;
     console.log(sampleFile);
     console.log(event_type);
-    imagePath = "public/images/image_" + start_time + "_" + event_title + "_original.jpg";
-    smallImagePath = "public/images/image_" + start_time + "_" + event_title + ".jpg";
+    event_title_parsed = event_title.split(' ').join('');
+    start_time_parsed = start_time.split(':').join('');
+    imagePath = "public/images/image_" + start_time_parsed + "_" + event_title_parsed + "_original.jpg";
+    smallImagePath = "public/images/image_" + start_time_parsed + "_" + event_title_parsed + ".jpg";
     sampleFile.mv(imagePath, function(err) {
         if (err) {
             res.redirect("/upload-failure");
