@@ -3,6 +3,7 @@ window.addEventListener('load', function(){
     setTimeout(function(){
         $.post("/upload/logout", function(responseJSON){
             console.log("get back");
+            window.location.href = "/login/upload"
         });
     }, 300000);
 }, false);

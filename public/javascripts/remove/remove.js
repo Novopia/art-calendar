@@ -7,6 +7,14 @@ window.addEventListener('load', function(){
     eventBtn.addEventListener('submit', getEvent, false);
     var removeForm = document.getElementById('removeEvent');
     removeForm.addEventListener('submit', removeEvent, false);
+
+    // time out after 5 minutes=300 seconds=300000
+    setTimeout(function(){
+        $.post("/remove/logout", function(responseJSON){
+            console.log("get back");
+            window.location.href = "/login/remove"
+        });
+    }, 300000);
 }, false);
 function removeEvent(e) {
     console.log("got into deleteEvent");
