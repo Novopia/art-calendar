@@ -111,17 +111,26 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
 
 });
 
-
+router.post('/checkLogin', function(req, res, next){
+    console.log("check login in server");
+    console.log("user id in server now is " + req.session.userId);
+    if (!req.session.userId) {
+       res.json("false");
+    } else {
+        res.json("true");
+    }
+});
 
 router.post('/logout', function(req, res, next) {
     console.log("reached post logout");
+    req.session.userId = null;
     req.session.destroy(function() {
         res.redirect("/login/upload");
     });
 
 });
 function isLoggedInMiddleware(req, res, next) {
-    console.dir("req's userID is " + req.userId);
+    console.dir("req's userID is " + req.session.userId);
     if (req.session.userId) {
         next();
     } else {
