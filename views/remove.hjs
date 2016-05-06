@@ -22,5 +22,8 @@
 </div>
 </form>
 <p id="deleteMsgStatus"></p>
+<form class="form-horizontal" method="POST" action="remove/logout">
+    <button class='btn btn-default' type="submit">Log out</button>
+</form>
 </body>
 </html>

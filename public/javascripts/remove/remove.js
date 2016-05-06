@@ -1,13 +1,30 @@
 /**
  * Created by Ting on 5/5/16.
  */
-window.addEventListener('load', function(){
-    var eventBtn = document.getElementById('getEvent');
-    console.log("got here at all");
-    eventBtn.addEventListener('submit', getEvent, false);
-    var removeForm = document.getElementById('removeEvent');
-    removeForm.addEventListener('submit', removeEvent, false);
-}, false);
+    // this handles the back button thing
+$.post("/remove/checkLogin", function(responseJSON){
+    console.log("got back from check login");
+    if (responseJSON == "false") {
+        window.location.href = "/login/remove";
+    }
+
+    window.addEventListener('load', function(){
+        var eventBtn = document.getElementById('getEvent');
+        console.log("got here at all");
+        eventBtn.addEventListener('submit', getEvent, false);
+        var removeForm = document.getElementById('removeEvent');
+        removeForm.addEventListener('submit', removeEvent, false);
+
+        // time out after 5 minutes=300 seconds=300000
+        setTimeout(function(){
+            $.post("/remove/logout", function(responseJSON){
+                console.log("get back");
+                window.location.href = "/login/remove"
+            });
+        }, 300000);
+    }, false);
+});
+
 function removeEvent(e) {
     console.log("got into deleteEvent");
     e.preventDefault();
