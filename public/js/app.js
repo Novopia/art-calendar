@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
 
-
 	///
 	/// Basic page layout setup
 
@@ -10,11 +9,13 @@ $(document).ready(function(){
 	}, 2000);
 
 	var bg_num = Math.floor(Math.random() * 2) + 1;  
-	var bg_url = "linear-gradient(0deg, rgba(200,230,255,0.5), rgba(200,230,255,0.5)), url('images/bg_"+ bg_num+".jpg')";
-	console.log(bg_url)
+	var bg_url = "linear-gradient(0deg, rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url('images/bg_"+ 2+".jpg')";
+	//console.log(bg_url)
+	//$('body').css("background-image","url('images/bg_5.png')");
+
 	$('body').css("background",bg_url);
 
-	var src = "images/bg_"+ bg_num+".jpg";
+	var src = "images/bg_"+ 2+".jpg";
 	
 	$('#nav_square_image').attr("src",src);
 
@@ -59,7 +60,7 @@ $(document).ready(function(){
 	///
 	/// Masonry grid layout & flip & isotope
 
- 	var $container = $('#cards');
+ 	$container = $('#cards');
 
 
 	$container.masonry({
@@ -134,6 +135,11 @@ $(document).ready(function(){
 	});
 
 
+    //////
+    //////Filters & Month & Search
+    //////
+
+
 	var prev_click = "";
 	var repeat = 0;
 
@@ -144,24 +150,24 @@ $(document).ready(function(){
 
 
 			if ($(this).parents('#filter_content').length>0){
-				$(this).css({'background-color':'#006494','color':'white'});
+				$(this).css({'background-color':'rgba( 52, 63, 91,0.8)','color':'white'});
 
 			} else{
-				$(this).css({'color':'#98C1D9'});
+				$(this).css({'color':'rgba( 52, 63, 91,0.8)'});
 			}
 			$container.isotope({ filter: '*' });
 			$container.masonry('layout');
 
 		} else{
 			repeat=0;
-			$('.grid-item .genre').css('color','#98C1D9');
+			$('.grid-item .genre').css('color','rgba( 52, 63, 91,0.8)');
 
 			var select_class = "." + $(this).text().split(' ').join('_').split('.').join('').split('#').join('');
 			console.log(select_class);
 			$container.isotope({ filter: select_class });
 
-			$('#filter_content .genre').css({'background-color':'#006494','color':'white'});
-			$(this).css({'background-color':'white','color':'#006494'});
+			$('#filter_content .genre').css({'background-color':'rgba( 52, 63, 91,0.8)','color':'white'});
+			$(this).css({'background-color':'white','color':'rgba( 52, 63, 91,0.4)'});
 		}
 
 		prev_click = $(this).text();
@@ -169,30 +175,16 @@ $(document).ready(function(){
 		console.log($(window).height());
 		console.log($("#cards").height());
 
-		var white_space = $(window).height()-$("#cards").height()-123;
-
-		console.log($(window).height()-$("#cards").height()-123);
-
-		if (white_space > 300){
-			console.log("danger");
-			var m_t = white_space - 200;
-			$("footer").css('margin-top',m_t);
-		} else{
-			$("footer").css('margin-top','100px');
-		}
+		resize_footer();
+		
 	});
 
 
-
-
-    //////
-    //////Filters & Month & Search
-    //////
     var click_month = 0;
     $('#month').click(function(){
 
     	if (click_month%2==0){
-    		$('#month').css({'width': '500px','color':'#006494','background-color': 'rgba(240,240,240,0.8)'});
+    		$('#month').css({'width': '500px','color':'rgba( 52, 63, 91,0.8)','background-color': 'rgba(240,240,240,0.8)'});
     		
     		setTimeout(function(){
     			$('.months').css('display','inline');
@@ -211,6 +203,24 @@ $(document).ready(function(){
     	click_month += 1;
     });
 
+    $('.months').click(function(){
+
+    	var year = new Date().getFullYear() + "";
+    	var mon = $(this).text();
+    	if (mon<10){
+    		mon = "0" + mon;
+    	}
+    	var y_m = year+mon;
+
+    	console.log(y_m);
+
+    	$.post('/month/'+y_m, function(response){
+    		console.log(response);
+    		remove_items();
+    		show_result(response.rows.length);
+    	})
+    })
+
 
 
     $('#search').focusout(function(){
@@ -222,9 +232,15 @@ $(document).ready(function(){
     	if ($(window).width()<975){
     		$('#month').css('display','none');
     	}
-    	$(document).keypress(function(e) {
+    	$('#search').keyup(function(e) {
 		    if(e.which == 13) {
-		    	//post word search
+		    	var searchMsg = $('#search').val();
+		    	console.log(searchMsg);
+		    	var toSend = {searchMsg: searchMsg};
+		    	$.post("/search", toSend, function(response){
+			      	console.log(response);
+			      	remove_items();
+			    });
 		    }
 		});
 
@@ -248,3 +264,43 @@ $(document).ready(function(){
 
 
 });
+
+
+function resize_footer(){
+	var white_space = $(window).height()-$("#cards").height()-123;
+
+		console.log($(window).height()-$("#cards").height()-123);
+
+		if (white_space > 300){
+			console.log("danger");
+			var m_t = white_space - 200;
+			$("footer").css('margin-top',m_t);
+		} else{
+			$("footer").css('margin-top','100px');
+		}
+}
+
+
+function remove_items(){
+
+	var it = $('.grid-item').slice(1);
+	$container.masonry('remove',it);
+	$container.masonry();
+	resize_footer();
+}
+
+function show_result(num){
+	var msg = "<p>We have crafted " + num + " events for you.</p>"
+	$('#result').html(msg);
+
+	$('#result').css({'top':"0px"})
+	$('#result').addClass("animated flipInX");
+
+	setTimeout(function(){
+		$('#result').css({'top':"-100px"});
+		$('#result').removeClass("animated flipInX");
+		$('#result p').empty();
+	},3000);
+
+
+}

@@ -224,7 +224,7 @@ body a{
   margin-right: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-  color:#98C1D9;
+  color:rgba( 52, 63, 91,0.8);
 }
 
 
@@ -252,7 +252,7 @@ body a{
 .grid-item .tag{
   margin-top: 8px;
   margin-bottom: 8px;
-  color:#98C1D9;
+  color:rgba( 52, 63, 91,0.8);
   font-size: 16px;
 }
 
@@ -370,12 +370,13 @@ nav ul li a:hover{
   height: 300px;
   width: 100%;
   border-radius: 10px;
+  opacity: 0.7;
 }
 
 #main_title{
   font-family: 'Merienda';
   font-weight: 400;
-  color:#98C1D9;
+  color:rgba( 52, 63, 91,0.8);
   font-size: 2.5em;
   text-decoration: none;
 /*  text-shadow: 1px 1px gray;
@@ -407,7 +408,7 @@ input:-ms-input-placeholder {
 }
 
 #nav_bar{
-  background-color: rgba(152,193,217,0.7);
+  background-color: rgba( 52, 63, 91,0.8);
   width: 100%;
   height: 53px;
   z-index: -10;
@@ -439,7 +440,7 @@ input:-ms-input-placeholder {
   color:white;
   width: 360px;
   text-indent: 10px;
-  background-color: #006494;
+  background-color: rgba( 52, 63, 91,0.8);
   z-index: 10;
 }
 
@@ -471,7 +472,7 @@ input:-ms-input-placeholder {
   border-radius: 3px; 
   padding: 0 5px 1px 5px; 
   margin-left: 8px;
-  background-color: #006494;
+  background-color: rgba( 52, 63, 91,0.8);
   color: white;
   font-size: 18px;
 }
@@ -509,7 +510,8 @@ input:-ms-input-placeholder {
   height:70px;
   background-color: rgba(152,193,217,0.7);
 /*  background-color: rgba(240,240,240,0.8);
-*/  color:#006494;
+*/  color:white;
+background-color:rgba( 52, 63, 91,0.6);
   font-family: "Source Sans Pro";
   display: none;
   border-bottom-right-radius: 10px;
@@ -537,7 +539,7 @@ input:-ms-input-placeholder {
   border-radius: 3px; 
   padding: 0 2px 1px 2px; 
   margin-left: 2px;
-  background-color: #006494;
+  background-color: rgba( 52, 63, 91,0.8);
 }
 
 #start_genre{
@@ -550,7 +552,7 @@ margin-top: 100px;
   width: 100%;
   height: 200px;
   margin-bottom: 0px;
-  background-color: #98C1D9;
+  background-color: #525174;
   text-align: center;
   display: none;
 }
@@ -560,7 +562,7 @@ margin-top: 100px;
   top: 10px;
   height: 143px;
   width: 100%;
-  background-color: #006494;
+  background-color: #513B56;
   font-family: 'Source Sans Pro', Helvetica;
   font-size: 1.3em;
   padding-top: 10px;
@@ -577,3 +579,19 @@ margin-top: 100px;
 }
 
 
+#result{
+  width: 100%;
+  height: 53px;
+  background-color: #5BC0BE;
+  position:absolute;
+  top:-100px;
+  text-align: center;
+  font-family: "Source Sans Pro", Helvetica;
+  opacity: 1;
+  font-size: 20px;
+  color:white;
+}
+
+#result p{
+  padding-top: 10px;
+}
