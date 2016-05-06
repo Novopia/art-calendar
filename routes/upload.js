@@ -116,7 +116,7 @@ router.post('/process', isLoggedInMiddleware, function(req, res, next) {
 router.post('/logout', function(req, res, next) {
     console.log("reached post logout");
     req.session.destroy(function() {
-        res.redirect("/login");
+        res.redirect("/login/upload");
     });
 
 });
