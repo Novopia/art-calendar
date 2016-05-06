@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0055)http://www.colourlovers.com/pattern/5318767/Sorbet_Grid -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./bg_3_files/ga.js"></script><script async="" type="text/javascript" src="./bg_3_files/gpt.js"></script><script>(function blockPopupsFunc(popupBlockMessage, showNotification, extensionId) {
+    var stndz = {
+        originalWindowOpen: window.open,
+        originalDocumentCreateElement: document.createElement,
+        originalDocumentCreateEvent: document.createEvent,
+        lastCreatedAnchor: undefined,
+        lastCreatedAnchorTime: undefined,
+        allowed: false
+    };
+
+    var windowOpenBlockRegex = /mediaserver|directrev|tradeadexchange|liveadexchanger|interyield\.|ordingly\.com|peritas247\.info|goodbookbook\.com|word-my\.com|terraclicks|tracki112\.com|popped|ahtamsu\.ru|startnewtab\.com|onclickads\.net|europacash\.com|wordkeyhelper\.com|d1110e4\.se|buzzonclick\.com|adultadworld\.com/i;
+    var windowOpenAllowRegex = /^http(s)?:\/\/([^\/]*\.)?(pinterest\.com|twitter\.com|paypal\.com|yahoo\.com|facebook\.com|linkedin\.com|salesforce\.com|amazon\.co|google\.co)/i;
+    var windowOpenAllowHosts = /^http(s)?:\/\/([^\/]*\.)?(search\.yahoo\.com|linkedin\.com)/i;
+    window.open = function() {
+        var popupArguments = arguments;
+        var openPopupFunc = function() {
+            return stndz.originalWindowOpen.apply(window, popupArguments);
+        };
+
+        if (stndz.allowed)
+            return openPopupFunc();
+
+        var block = arguments[0] && windowOpenBlockRegex.test(arguments[0]);
+        if (block) {
+            showPopupNotification('ad-popup', arguments, openPopupFunc);
+            return { };
+        }
+
+        var allow = arguments[0] && (windowOpenAllowRegex.test(arguments[0]) || windowOpenAllowHosts.test(window.location.href));
+        if (allow) {
+            return openPopupFunc();
+        }
+
+        var targetName = arguments.length >= 2 ? arguments[1] : null;
+        if (targetName == '_parent' || targetName == '_self' || targetName == '_top')
+            return openPopupFunc();
+
+        if (!window.event)
+            return openPopupFunc();
+
+        try {
+            var windowOpenUrl = new URL(arguments[0]);
+            if (windowOpenUrl.host.indexOf(window.location.host) > -1 || (windowOpenUrl.host != "" && window.location.host.indexOf(windowOpenUrl.host) > -1))
+                return openPopupFunc();
+        } catch(e) { }
+
+        var currentTargetValid = window.event &&
+            window.event.currentTarget &&
+            window.event.currentTarget !== window &&
+            window.event.currentTarget !== document &&
+            window.event.currentTarget !== document.body;
+
+        var targetValid = window.event &&
+            window.event.target &&
+            window.event.target.tagName == 'A' &&
+            window.event.target.href.indexOf('http') == -1;
+
+        if (currentTargetValid || targetValid) {
+            return openPopupFunc();
+        }
+
+        if (showNotification)
+            showPopupNotification('not-user-initiated', arguments);
+
+        return { };
+    };
+
+    window.stndzStopPopupBlocking = function(iframeGuid) {
+        if (popupBlockMessage.iframeGuid == iframeGuid) {
+            stndz.allowed = true;
+        }
+    };
+
+    window.stndzResumePopupBlocking = function(iframeGuid) {
+        if (popupBlockMessage.iframeGuid == iframeGuid) {
+            stndz.allowed = false;
+        }
+    };
+
+    document.createElement = function() {
+        var element = stndz.originalDocumentCreateElement.apply(document, arguments);
+        if (element.tagName == 'A') {
+            stndz.lastCreatedAnchorTime = new Date();
+            stndz.lastCreatedAnchor = element;
+        }
+
+        return element;
+    };
+
+    var anchorPopupsExcludedHosts = { 'sh.st': true };
+    document.createEvent = function() {
+        if (!stndz.allowed && arguments[0].toLocaleLowerCase().indexOf('mouse') > -1 && stndz.lastCreatedAnchorTime && new Date() - stndz.lastCreatedAnchorTime < 50) {
+            if (anchorPopupsExcludedHosts[document.location.host]) {
+                stndz.lastCreatedAnchor.target = "_top";
+            } else if (windowOpenAllowRegex.test(stndz.lastCreatedAnchor.href) == false) {
+                var anchor = stndz.lastCreatedAnchor;
+                showPopupNotification('create-link', null, function() { anchor.click(); });
+                return null;
+            }
+        }
+
+        return stndz.originalDocumentCreateEvent.apply(document, arguments);
+    };
+
+    window.addEventListener("message", function(event) {
+        switch (event.data.type) {
+            case 'stndz-show-popup-notification':
+                if (window !== window.top)
+                    return;
+
+                window.stndzPopupActionWindow = event.source;
+                window.stndzPopupClicked = function(option) {
+                    window.hidePopupNotification();
+                    window.stndzPopupActionWindow.postMessage({type: 'stndz-popup-action', option: option}, event.origin);
+                };
+
+                if (window.popupNotificationOpen) {
+                    window.highlightPopupNotification();
+                    return;
+                } else if (window.popupNotificationOpen === false) { // if it was previously opened just show it, the delegate to open the new window was created above
+                    window.showPopupNotification();
+                } else {
+                    var notificationElement = createNotificationOnPage();
+
+                    setTimeout(function() {
+                        window.showPopupNotification();
+                    }, 0);
+
+                    window.showPopupNotification = function() {
+                        window.popupNotificationOpen = true;
+
+                        notificationElement.style.top = '0px';
+
+                        var hidePopupNotificationId;
+                        window.hidePopupNotification = function() {
+                            window.popupNotificationOpen = false;
+                            notificationElement.style.top = '-40px';
+                            notificationElement.style.height = '30px';
+                            clearTimeout(hidePopupNotificationId);
+                        };
+
+                        hidePopupNotificationId = setTimeout(window.hidePopupNotification, 30 * 1000);
+                        notificationElement.onmouseover = function() {
+                            clearTimeout(hidePopupNotificationId);
+                        };
+                    };
+
+                    var helpOpen = false;
+                    var originalBackground = notificationElement.style.background;
+                    window.highlightPopupNotification = function() {
+                        notificationElement.style.background = '#FFFBCC';
+                        setTimeout(function() {
+                            notificationElement.style.background = originalBackground;
+                        }, 1000);
+
+                        notificationElement.style.height = '120px';
+                        helpOpen = true;
+                    };
+
+                    window.togglePopupNotificationHelp = function() {
+                        notificationElement.style.height = helpOpen ? '30px' : '120px';
+                        helpOpen = !helpOpen;
+                    };
+                }
+
+                break;
+
+            case 'stndz-popup-action':
+                window.stndzPopupAction && window.stndzPopupAction(event.data.option);
+                break;
+        }
+    }, false);
+
+    function allowPopupsOnThisPage() {
+        stndz.allowed = true;
+    }
+
+    function showPopupNotification(blockType, args, openPopupFunc) {
+        if (!showNotification)
+            return;
+
+        window.stndzPopupAction = function(option) {
+            if (option == 'once' || option == 'allow') {
+                allowPopupsOnThisPage();
+                popupBlockMessage.arguments = args;
+                openPopupFunc && openPopupFunc();
+            } else {
+                showNotification = false;
+            }
+
+            popupBlockMessage.option = option;
+            var stndzActivateFrame = document.getElementById("stndz-activate");
+            var windowToPost = stndzActivateFrame ? stndzActivateFrame.contentWindow : window;
+            windowToPost.postMessage(popupBlockMessage, '*');
+        };
+
+        window.top.postMessage({
+            type: 'stndz-show-popup-notification',
+            iframeGuid: popupBlockMessage.iframeGuid,
+            blockType: blockType
+        }, '*');
+    }
+
+    function createNotificationOnPage() {
+        var style = document.createElement('style');
+        style.textContent = '.stndz-popup-notification {' +
+        'width: 670px;' +
+        'height: 30px;' +
+        'position: fixed;' +
+        'overflow: hidden;' +
+        'top: -40px;' +
+        'margin: 0 auto;' +
+        'z-index: 2147483647;' +
+        'left: 0px;' +
+        'right: 0px;' +
+        'background: rgb(240, 240, 240);' +
+        'border-radius: 0px 0px 5px 5px;' +
+        'border: solid 1px #999999;' +
+        'box-shadow: 0px 2px 5px #444444;' +
+        'border-top: none; ' +
+        'line-height: 31px;' +
+        'font-size: 12px;' +
+        'font-family: sans-serif;' +
+        'color: #59595c;' +
+        'text-align: center;' +
+        'direction: ltr;' +
+        'transition-duration: 500ms;}' +
+        '.stndz-button {' +
+        'padding: 3px 15px !important;' +
+        'border: solid 1px #a4a6aa !important;' +
+        'height: 25px !important;' +
+        'border-radius: 5px !important;' +
+        'background-color: #3058b0 !important;' +
+        'background: linear-gradient(#f5f5f5, #dfdfdf) !important;' +
+        'box-shadow: inset 0px 1px 0px #ffffff, inset 0 -1px 2px #acacac !important;' +
+        'color: #555555 !important;' +
+        'font-size: 12px !important;' +
+        'line-height: 16px !important;' +
+        'font-family: sans-serif !important;' +
+        'text-align: center !important;' +
+        'background-repeat: no-repeat !important;' +
+        'text-decoration: none !important;}' +
+        '.stndz-button:hover{' +
+        'background: linear-gradient(#eeeeee, #d1d1d1) !important;' +
+        'text-decoration: none !important;' +
+        'color: #555555 !important;}';
+        document.documentElement.appendChild(style);
+
+        var div = document.createElement('div');
+        div.setAttribute('class', 'stndz-popup-notification');
+        div.innerHTML = '<img src="chrome-extension://' + extensionId + '/views/web_accessible/images/icon.png" style="top: 5px; left: 5px;height: 20px; display: initial;position: absolute;">' +
+        '&nbsp;<b>Site Popup Blocked:</b>' +
+        '&nbsp;&nbsp;<a href="javascript:void(0)" id="stndz-popup-allow-once" class="stndz-button">Allow once</a>' +
+        '&nbsp;&nbsp;<a href="javascript:void(0)" id="stndz-popup-allow" class="stndz-button">Allow always</a>' +
+        '&nbsp;&nbsp;<a href="javascript:void(0)" id="stndz-popup-block" class="stndz-button">Block always</a>' +
+        '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" id="stndz-popup-help"><img src="chrome-extension://' + extensionId + '/views/web_accessible/images/help.png" style="opacity: 0.3; position: absolute; top: 7px; display: initial;right: 30px;" /></a>' +
+        '&nbsp;<a href="javascript:void(0)" id="stndz-popup-close"><img src="chrome-extension://' + extensionId + '/views/web_accessible/images/close.png" style="opacity: 0.3; position: absolute; top: 7px; display: initial;right: 7px;" /></a>' +
+        '<br /><div style="line-height: 22px; text-align: left; padding: 0px 5px 0px 5px; font-size: 11px;">The site tried to open a popup and Stands blocked it.' +
+        '<br />if you don\'t trust this site you should click <b>"Block always"</b>, if you do click <b>"Allow always"</b>.' +
+        '<br />If you\'re not sure click <b>"Allow once"</b> which will open the popup and pause popup blocking for the current page visit.' +
+        '<br />You can always change your settings in the application window.</div>';
+        document.body.appendChild(div);
+
+        document.getElementById("stndz-popup-allow-once").onclick = function(event) { event.stopPropagation(); window.stndzPopupClicked("once") };
+        document.getElementById("stndz-popup-allow").onclick = function(event) { event.stopPropagation(); window.stndzPopupClicked("allow") };
+        document.getElementById("stndz-popup-block").onclick = function(event) { event.stopPropagation(); window.stndzPopupClicked("block") };
+        document.getElementById("stndz-popup-help").onclick = function(event) { event.stopPropagation(); window.togglePopupNotificationHelp() };
+        document.getElementById("stndz-popup-close").onclick = function(event) { event.stopPropagation(); window.hidePopupNotification(); };
+
+        return div;
+    }
+})({"type":"popup-user-action","iframeGuid":"v0RRAm5bF2bJ1e0KzxPSGmvVZeVXgZLpQjNR"},true, 'lgblnfidahcdcjddiepkckcfdhpknnjh');</script><style>iframe[id*="google_ads_iframe_"] { display: none !important; } </style>
+<title>Pattern / Sorbet Grid :: COLOURlovers</title>
+<meta name="keywords" content="">
+<meta name="description" content="Sorbet Grid pattern by victoriawings. ">
+
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><![endif]-->
+<!--[if lt IE 7]><meta http-equiv="imagetoolbar" content="no"><![endif]-->
+<link rel="shortcut icon" href="http://static.colourlovers.com/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="http://static.colourlovers.com/images/v4.0/_/misc/apple-touch-icon.png" type="image/png">
+<link rel="search" type="application/opensearchdescription+xml" href="http://static.colourlovers.com/firefox/COLOURlovers.xml" title="COLOURlovers Palette Search">
+<link rel="search" type="application/opensearchdescription+xml" href="http://static.colourlovers.com/firefox/COLOURlovers_hex.xml" title="COLOURlovers Palette HEX Search">
+<link rel="dns-prefetch" href="http://colourlovers.com/">
+<link rel="dns-prefetch" href="http://static.colourlovers.com/">
+<link rel="dns-prefetch" href="http://colourlovers.com.s3.amazonaws.com/">
+<link rel="dns-prefetch" href="http://s3.amazonaws.com/">
+<link rel="canonical" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid">
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://www.colourlovers.com/blog/atom">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/Colourlovers">
+					<script type="text/javascript">
+						//<![CDATA[
+						var _lang		= "en-us";
+						var _cSV		= "v4.0";
+						var _DEVICE_ID	= "web01";
+						//]]>
+					</script>
+<script type="text/javascript" src="./bg_3_files/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/prototype.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/scriptaculous.js" charset="utf-8"></script><script type="text/javascript" src="./bg_3_files/effects.js"></script><script type="text/javascript" src="./bg_3_files/slider.js"></script><script type="text/javascript" src="./bg_3_files/builder.js"></script><script type="text/javascript" src="./bg_3_files/dragdrop.js"></script>
+<script type="text/javascript" src="./bg_3_files/jquery.tipsy-1.0.0a.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/scrollbar-min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/lib.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/global.js" charset="utf-8"></script>
+<script type="text/javascript" src="./bg_3_files/ModalWindow.class.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="./bg_3_files/global.css" media="all">
+<link rel="stylesheet" type="text/css" href="./bg_3_files/tipsy.css" media="all">
+<link rel="image_src" href="http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318767.png">				<script type="text/javascript">
+					var googletag = googletag || {};
+					googletag.cmd = googletag.cmd || [];
+					(function() {
+						var gads = document.createElement('script');
+						gads.async = true;
+						gads.type = 'text/javascript';
+						var useSSL = 'https:' == document.location.protocol;
+						gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+						var node = document.getElementsByTagName('script')[0];
+						node.parentNode.insertBefore(gads, node);
+					})();
+				</script>
+
+				<script type="text/javascript">
+					googletag.cmd.push(function() {
+								googletag.defineSlot('/16782057/CL_FlexHalfPage_ROS',[[300,600],[160,600],[300,250]],'ga-half-page').addService(googletag.pubads());
+								googletag.defineSlot('/16782057/CL_Leader_ROS_ATF',[728,90],'ga-below-header').addService(googletag.pubads());
+								googletag.defineSlot('/16782057/CL_Leader_ROS_BTF',[728,90],'ga-above-footer').addService(googletag.pubads());
+								googletag.defineSlot('/16782057/CL_MedRec_ROS_ATF',[300,250],'ga-300x250').addService(googletag.pubads());
+						googletag.enableServices();
+					});
+				</script>
+					<script type="text/javascript">
+						//<![CDATA[
+						var _gaq = _gaq || [];
+						_gaq.push(["_setAccount", "UA-731420-1"]);
+						_gaq.push(["_trackPageview"]);
+
+						(function() {
+							var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true;
+							ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+							var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s);
+						})();
+						//]]>
+					</script>
+
+<script src="./bg_3_files/pubads_impl_86.js" async=""></script><link rel="prefetch" href="http://tpc.googlesyndication.com/safeframe/1-0-2/html/container.html"></head>
+
+<body>
+						<script type="text/javascript" src="./bg_3_files/colourlovers"></script>
+						<script type="text/javascript" src="./bg_3_files/quant.js"></script>
+						<noscript>&lt;img src="//pixel.quantserve.com/pixel/p-0eUEUzVYOgu22.gif" style="display: none;" height="1" width="1" alt="Quantcast" /&gt;</noscript>
+						<script type="text/javascript">_qacct = "p-0eUEUzVYOgu22"; quantserve();</script>
+<div class="header-shell">
+<div class="header">
+<div id="header-user-contents"><div id="log-in-drop-down"><div class="drop-down-left-cap"></div><div class="text"><a href="http://www.colourlovers.com/login" onclick="return false;">Log In</a></div><div id="log-in-drop-down-arrow"></div><div class="drop-down-right-cap"></div></div><div class="sign-up-btn"><div class="sign-up-btn-left-cap"></div><div class="text"><a href="https://www.colourlovers.com/register">Sign Up</a></div><div class="sign-up-btn-right-cap"></div></div><div id="log-in-drop-down-contents" style="display: none; height: 110px;"></div></div><a href="http://www.colourlovers.com/" class="colourlovers-logo" title="Home">COLOURlovers</a></div></div>
+<div id="header-colors" style="background-image: url(http://static.colourlovers.com/images/v4.0/_/header/colors-bg.png?05059)"></div>
+				<div id="ga-below-header" style="margin: 30px auto 10px; text-align: center; width: 978px;"><script type="text/javascript">googletag.cmd.push(function() { googletag.display("ga-below-header"); });</script><div id="google_ads_iframe_/16782057/CL_Leader_ROS_ATF_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16782057/CL_Leader_ROS_ATF_0" title="3rd party ad content" name="google_ads_iframe_/16782057/CL_Leader_ROS_ATF_0" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom;" src="./bg_3_files/saved_resource.html"></iframe></div><iframe id="google_ads_iframe_/16782057/CL_Leader_ROS_ATF_0__hidden__" title="" name="google_ads_iframe_/16782057/CL_Leader_ROS_ATF_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;" src="./bg_3_files/saved_resource(1).html"></iframe></div>
+<div class="nav">
+<div id="search-create"><div id="global-search"><form id="global-search-form" action="http://www.colourlovers.com/palettes/search" method="get"><div class="label-overlay"><label for="global-search-query" id="global-search-query-label">Search palettes…</label><input type="text" name="query" id="global-search-query"></div><div id="global-search-type"><a id="global-search-type-trigger" class="palette" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="return false;"><span class="icon"></span></a><div id="global-search-type-menu" class="dark-grey-menu align-left" style="display: none;"><div class="top"><div class="left"></div><div class="right"></div><div class="middle"></div></div><ul><li><div class="left"></div><div class="right"></div><a class="palette" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/palettes/search" data-label="Search palettes…"><span class="icon"></span>Palettes<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="pattern" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/patterns/search" data-label="Search patterns…"><span class="icon"></span>Patterns<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="pattern-template" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/pattern/templates/search" data-label="Search pattern templates"><span class="icon"></span>Pattern Templates<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="shape" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/shapes/search" data-label="Search shapes…"><span class="icon"></span>Shapes<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="color" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/colors/search" data-label="Search colors…"><span class="icon"></span>Colors<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="lover" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" data-action="/lovers/search" data-label="Search lovers…"><span class="icon"></span>Lovers<span class="pad-right"></span></a></li></ul><div class="bottom"><div class="left"></div><div class="right"></div><div class="middle"></div></div></div></div><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" id="global-search-submit" onclick="$(&#39;global-search-form&#39;).submit(); return false;">Search</a></form></div><div class="divider"></div><div id="global-create"><a id="global-create-trigger" href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="return false;">Create</a><div id="global-create-menu" class="dark-grey-menu align-right" style="display: none;"><div class="top"><div class="left"></div><div class="right"></div><div class="middle"></div></div><ul><li><div class="left"></div><div class="right"></div><a class="palette" href="http://www.colourlovers.com/palettes/add"><span class="icon"></span>Palette<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="pattern" href="http://www.colourlovers.com/patterns/add"><span class="icon"></span>Pattern<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="pattern-template" href="http://www.colourlovers.com/seamless"><span class="icon"></span>Pattern Template<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="shape" href="http://www.colourlovers.com/seamless"><span class="icon"></span>Shape<span class="pad-right"></span></a></li><li><div class="left"></div><div class="right"></div><a class="color" href="http://www.colourlovers.com/colors/add"><span class="icon"></span>Color<span class="pad-right"></span></a></li></ul><div class="bottom"><div class="left"></div><div class="right"></div><div class="middle"></div></div></div></div></div><ul class="nav">
+<li><a id="nav_0" href="http://www.colourlovers.com/browse">Browse</a></li>
+<li><a id="nav_1" href="http://www.colourlovers.com/community">Community</a></li>
+<li><a id="nav_2" href="http://www.colourlovers.com/channels">Channels</a></li>
+<li><a id="nav_3" href="http://www.colourlovers.com/trends">Trends</a></li>
+<li><a id="nav_4" href="http://www.colourlovers.com/tools">Tools</a></li>
+</ul>
+<div id="sub-nav_0" class="sub-nav" style="display: none;"><span><a href="http://www.colourlovers.com/palettes"><span></span>Palettes</a></span><span><a href="http://www.colourlovers.com/patterns"><span></span>Patterns</a></span><span><a href="http://www.colourlovers.com/pattern/templates"><span></span>Pattern Templates</a></span><span><a href="http://www.colourlovers.com/shapes"><span></span>Shapes</a></span><span><a href="http://www.colourlovers.com/colors"><span></span>Colors</a></span><span><a href="http://www.colourlovers.com/lovers" class="last"><span></span>Lovers</a></span></div><div id="sub-nav_1" class="sub-nav" style="display: none;"><span><a href="http://www.colourlovers.com/blog"><span></span>Blog</a></span><span><a href="http://www.colourlovers.com/forums"><span></span>Forums</a></span><span><a href="http://www.colourlovers.com/groups"><span></span>Groups</a></span><span><a href="http://www.colourlovers.com/group/Sharing_the_Love" class="last"><span></span>FAQ</a></span></div><div id="sub-nav_2" class="sub-nav" style="display: none;"><span><a href="http://www.colourlovers.com/craft"><span></span>Craft</a></span><span><a href="http://www.colourlovers.com/digital-art"><span></span>Digital Art</a></span><span><a href="http://www.colourlovers.com/fashion"><span></span>Fashion</a></span><span><a href="http://www.colourlovers.com/home"><span></span>Home</a></span><span><a href="http://www.colourlovers.com/print"><span></span>Print</a></span><span><a href="http://www.colourlovers.com/web"><span></span>Web</a></span><span><a href="http://www.colourlovers.com/wedding" class="last"><span></span>Wedding</a></span></div><div id="sub-nav_3" class="sub-nav" style="display: none;"><span><a href="http://www.colourlovers.com/digital-art/trends/branding"><span></span>Branding</a></span><span><a href="http://www.colourlovers.com/craft/trends/handmade"><span></span>Handmade</a></span><span><a href="http://www.colourlovers.com/home/trends/interior-looks"><span></span>Interior Looks</a></span><span><a href="http://www.colourlovers.com/print/trends/magazines"><span></span>Magazines</a></span><span><a href="http://www.colourlovers.com/fashion/trends/street-fashion"><span></span>Street Fashion</a></span><span><a href="http://www.colourlovers.com/web/trends/websites"><span></span>Websites</a></span><span><a href="http://www.colourlovers.com/wedding/trends/wedding-invites" class="last"><span></span>Wedding Invites</a></span></div><div id="sub-nav_4" class="sub-nav" style="display: none;"><span><a href="http://www.colourlovers.com/seamless"><span></span>Seamless Lite</a></span><span><a href="http://www.colourlovers.com/photocopa"><span></span>PHOTOCOPA</a></span><span><a href="http://www.colourlovers.com/copaso/ColorPaletteSoftware"><span></span>COPASO</a></span><span><a href="http://www.colourlovers.com/coty" class="last"><span></span>Color Of The Year</a></span></div></div>
+<div class="content">
+<div class="column-container"><div class="col-620 mr-20">
+<div class="dark-bg-content-container">
+<div class="sub-panel mb-0 mt-0 feature-detail-container">
+<h1>Sorbet Grid</h1><div class="feature-detail">
+<a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="patternImgDetail(5318767,&#39;&#39;,1462488433); return false;" class="feature pointer" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318767.png?1462488433);"></a><div class="pattern-options">
+<a href="http://www.colourlovers.com/patterns/search?patternDefinitionID=44647" class="browse-similar-patterns"><span></span>Browse Similar Patterns</a><a href="http://www.colourlovers.com/patterns/add?patternDefinitionID=44647" class="create-pattern"><span></span>Color This Pattern</a><div class="clear"></div></div></div><div class="feature-detail-stats big-number-label">
+<div class="mt-10" style="height: 48px;">
+<a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" id="love-this-btn_5318767" onclick="addScore(&#39;n&#39;,&#39;5318767&#39;,&#39;8fa911ef23&#39;,&#39;love-this-btn_5318767&#39;,&#39;unlove-this-btn_5318767&#39;,&#39;num-scores-count_5318767&#39;); return false;" class="love-this-btn"><span></span>Love This</a><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" id="unlove-this-btn_5318767" onclick="rmScore(&#39;n&#39;,&#39;5318767&#39;,&#39;8fa911ef23&#39;,&#39;love-this-btn_5318767&#39;,&#39;unlove-this-btn_5318767&#39;,&#39;num-scores-count_5318767&#39;); return false;" class="unlove-this-btn" style="display: none;"><span></span>Loved</a><div class="clear"></div></div><h4 id="num-scores-count_5318767">0</h4><h5>Loves</h5><h4 class="pointer" onclick="window.location.href=&#39;#comments&#39;;">0</h4><h5 class="pointer" onclick="window.location.href=&#39;#comments&#39;;">Comments</h5><h4>3</h4><h5 class="mb-0">Views</h5><div class="clear"></div></div><div class="clear"></div></div></div><div class="tall-light-header"><h2 class="left">About This Pattern</h2></div><div class="dark-bg-content-container"><div class="padded-bordered-content feature-about"><div class="col-320"><a href="http://www.colourlovers.com/lover/victoriawings" class="avatar mr-10" title="victoriawings"><span class="user-avatar-4513733" style="background-image: url(http://static.colourlovers.com/images/v4.0/_/lover/noAvatarPat.png);"></span></a><div class="by left"><h3>By <a href="http://www.colourlovers.com/lover/victoriawings">victoriawings</a></h3><span title="5 May, 2016 17:47:13">1 minute ago</span><br><a href="http://www.colourlovers.com/pattern/template/44647/Poetic_Tea">Pattern Template</a> By: <a href="http://www.colourlovers.com/lover/about_jade" target="_blank">about_jade</a></div></div><div class="col-240 tar" style="color: #b2b2b2;"><em class="ulc">3 COLOURlovers viewed this page and think <a href="http://www.colourlovers.com/lover/victoriawings" style="color: #b2b2b2;">victoriawings</a> is the epitome of creativity.</em></div><div class="clear"></div><div class="mb-20"></div><div class="left" style="width: 560px;"><h3 class="sub-panel-header">Rank</h3><div class="sub-panel-dark rank-display">
+<div class="col-90 big-number-label" style="width: 135px;">
+<h4><span>N/A</span></h4><h5>Today</h5></div><div class="col-90 big-number-label" style="width: 135px;">
+<h4><span>N/A</span></h4><h5>Week</h5></div><div class="col-90 big-number-label" style="width: 135px;">
+<h4><span>N/A</span></h4><h5>Month</h5></div><div class="col-90 big-number-label" style="width: 135px;">
+<h4>25,000+</h4><h5>All-Time</h5></div><div class="clear"></div>
+</div></div><div class="clear"></div></div></div><div class="tall-light-header"><h2>Colors</h2></div><div class="dark-bg-content-container"><div class="padded-bordered-content detail-square-container"><div class="detail-row"><div id="c--16-vd4JxUjo-overlay" class="detail-row-overlay" style="display: none;"><a href="http://www.colourlovers.com/color/FFFFFF/white" class="color" style="background-color: #FFFFFF;"><span style="height: 5px; margin-top: 45px;"></span></a></div><h3 class="left mr-10" style="height: 20px;"><a href="http://www.colourlovers.com/color/FFFFFF/white">white</a></h3><div class="left username" style="height: 20px;">by <a href="http://www.colourlovers.com/lover/COLOURlover" class="lighter">COLOURlover</a></div><div class="clear"></div><div id="c--16-vd4JxUjo-item"><a href="http://www.colourlovers.com/color/FFFFFF/white" class="color" style="background-color: #FFFFFF;"><span style="height: 5px; margin-top: 45px;"></span></a></div><div class="meta"><div class="col-70 big-number-label">
+<h4>FFFFFF</h4><h5>Hex</h5></div><div class="col-80 big-number-label">
+<h4>255,255,255</h4><h5>RGB</h5></div><div class="right-col big-number-label">
+<h4>1053</h4><h5>Loves</h5></div><div class="right-col big-number-label">
+<h4>170164</h4><h5>Views</h5></div><div class="right-col big-number-label">
+<h4>679</h4><h5>Favorites</h5></div><div class="right-col big-number-label">
+<h4>1137</h4><h5>Comments</h5></div><div class="clear"></div></div></div><div class="detail-row"><div id="c--48751-PLbksVf5-overlay" class="detail-row-overlay" style="display: none;"><a href="http://www.colourlovers.com/color/FAEFEE/marketing" class="color" style="background-color: #FAEFEE;"><span style="height: 5px; margin-top: 45px;"></span></a></div><h3 class="left mr-10" style="height: 20px;"><a href="http://www.colourlovers.com/color/FAEFEE/marketing">marketing</a></h3><div class="left username" style="height: 20px;">by <a href="http://www.colourlovers.com/lover/lizcrimson" class="lighter">lizcrimson</a></div><div class="clear"></div><div id="c--48751-PLbksVf5-item"><a href="http://www.colourlovers.com/color/FAEFEE/marketing" class="color" style="background-color: #FAEFEE;"><span style="height: 5px; margin-top: 45px;"></span></a></div><div class="meta"><div class="col-70 big-number-label">
+<h4>FAEFEE</h4><h5>Hex</h5></div><div class="col-80 big-number-label">
+<h4>250,239,238</h4><h5>RGB</h5></div><div class="right-col big-number-label">
+<h4>1</h4><h5>Love</h5></div><div class="right-col big-number-label">
+<h4>154</h4><h5>Views</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Favorites</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Comments</h5></div><div class="clear"></div></div></div><div class="detail-row"><div id="c--84478-IFcW2h5o-overlay" class="detail-row-overlay" style="display: none;"><a href="http://www.colourlovers.com/color/F7E3E3/Glass_Rose" class="color" style="background-color: #F7E3E3;"><span style="height: 5px; margin-top: 45px;"></span></a></div><h3 class="left mr-10" style="height: 20px;"><a href="http://www.colourlovers.com/color/F7E3E3/Glass_Rose">Glass Rose</a></h3><div class="left username" style="height: 20px;">by <a href="http://www.colourlovers.com/lover/Funky%20Diva" class="lighter">Funky Diva</a></div><div class="clear"></div><div id="c--84478-IFcW2h5o-item"><a href="http://www.colourlovers.com/color/F7E3E3/Glass_Rose" class="color" style="background-color: #F7E3E3;"><span style="height: 5px; margin-top: 45px;"></span></a></div><div class="meta"><div class="col-70 big-number-label">
+<h4>F7E3E3</h4><h5>Hex</h5></div><div class="col-80 big-number-label">
+<h4>247,227,227</h4><h5>RGB</h5></div><div class="right-col big-number-label">
+<h4>4</h4><h5>Loves</h5></div><div class="right-col big-number-label">
+<h4>202</h4><h5>Views</h5></div><div class="right-col big-number-label">
+<h4>2</h4><h5>Favorites</h5></div><div class="right-col big-number-label">
+<h4>1</h4><h5>Comment</h5></div><div class="clear"></div></div></div><div class="detail-row"><div id="c--1093269-sKYpSwBO-overlay" class="detail-row-overlay" style="display: none;"><a href="http://www.colourlovers.com/color/F7DFE3/Almost_Gone" class="color" style="background-color: #F7DFE3;"><span style="height: 5px; margin-top: 45px;"></span></a></div><h3 class="left mr-10" style="height: 20px;"><a href="http://www.colourlovers.com/color/F7DFE3/Almost_Gone">Almost Gone</a></h3><div class="left username" style="height: 20px;">by <a href="http://www.colourlovers.com/lover/bloobloo" class="lighter">bloobloo</a></div><div class="clear"></div><div id="c--1093269-sKYpSwBO-item"><a href="http://www.colourlovers.com/color/F7DFE3/Almost_Gone" class="color" style="background-color: #F7DFE3;"><span style="height: 5px; margin-top: 45px;"></span></a></div><div class="meta"><div class="col-70 big-number-label">
+<h4>F7DFE3</h4><h5>Hex</h5></div><div class="col-80 big-number-label">
+<h4>247,223,227</h4><h5>RGB</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Loves</h5></div><div class="right-col big-number-label">
+<h4>62</h4><h5>Views</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Favorites</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Comments</h5></div><div class="clear"></div></div></div><div class="detail-row"><div id="c--1984351-N6XDP7si-overlay" class="detail-row-overlay" style="display: none;"><a href="http://www.colourlovers.com/color/F6D0DC/F6D0DC" class="color" style="background-color: #F6D0DC;"><span style="height: 5px; margin-top: 45px;"></span></a></div><h3 class="left mr-10" style="height: 20px;"><a href="http://www.colourlovers.com/color/F6D0DC/F6D0DC">F6D0DC</a></h3><div class="left username" style="height: 20px;">by <a href="http://www.colourlovers.com/lover/Skyblue2u" class="lighter">Skyblue2u</a></div><div class="clear"></div><div id="c--1984351-N6XDP7si-item"><a href="http://www.colourlovers.com/color/F6D0DC/F6D0DC" class="color" style="background-color: #F6D0DC;"><span style="height: 5px; margin-top: 45px;"></span></a></div><div class="meta"><div class="col-70 big-number-label">
+<h4>F6D0DC</h4><h5>Hex</h5></div><div class="col-80 big-number-label">
+<h4>246,208,220</h4><h5>RGB</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Loves</h5></div><div class="right-col big-number-label">
+<h4>30</h4><h5>Views</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Favorites</h5></div><div class="right-col big-number-label">
+<h4>0</h4><h5>Comments</h5></div><div class="clear"></div></div></div><div class="clear"></div>				<script type="text/javascript">
+					//<![CDATA[
+					setAutoGrowFeatures("c--16-vd4JxUjo","c--48751-PLbksVf5","c--84478-IFcW2h5o","c--1093269-sKYpSwBO","c--1984351-N6XDP7si");
+					//]]>
+				</script>
+</div></div><div class="comments" id="comments"><a name="comments"></a><div class="sub-header"><h2 style="margin-left: -10px;">Post a Comment</h2></div>
+<div class="content-panel comment-form-wide">
+<div class="ulc">You must be <a href="http://www.colourlovers.com/login">logged in</a> to post a comment.</div></div></div>
+</div><div class="col-300">
+<div class="mb-20 ad">				<div id="ga-300x250" style="width: 300px; height: 250px;"><script type="text/javascript">googletag.cmd.push(function() { googletag.display("ga-300x250"); });</script><div id="google_ads_iframe_/16782057/CL_MedRec_ROS_ATF_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16782057/CL_MedRec_ROS_ATF_0" title="3rd party ad content" name="google_ads_iframe_/16782057/CL_MedRec_ROS_ATF_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom;" src="./bg_3_files/saved_resource(2).html"></iframe></div><iframe id="google_ads_iframe_/16782057/CL_MedRec_ROS_ATF_0__hidden__" title="" name="google_ads_iframe_/16782057/CL_MedRec_ROS_ATF_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;" src="./bg_3_files/saved_resource(3).html"></iframe></div>
+</div><h3 class="sub-panel-header">Share This Pattern</h3><div class="sub-panel-dark">
+<h5 class="share-on">Share on</h5><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="window.location.href = &#39;/op/share/pinterest/n/5318767&#39;; return false;" target="_blank" class="left mr-10"><img src="./bg_3_files/pinterest.png" alt="Share"></a><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="window.location.href = &#39;/op/share/twitter/n/5318767&#39;; return false;" target="_blank" class="left mr-10"><img src="./bg_3_files/twitter.png" alt="Share"></a><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="var _width = 650,_height = 400,_pageSize = getPageSize(),_left = Math.round((_pageSize[2] / 2) - (_width / 2)),_top = Math.round((_pageSize[3] / 2) - (_height / 2)),_facebookWindow = window.open(&#39;/op/share/facebook/n/5318767&#39;,&#39;facebookshare&#39;,&#39;height=&#39; + _height.toString() + &#39;,width=&#39; + _width.toString()); _facebookWindow.resizeTo(_width,_height); _facebookWindow.moveTo(_left,_top); return false;" class="left mr-10" target="_blank"><img src="./bg_3_files/facebook.png" alt="Share on Facebook" title="Share on Facebook"></a>
+<a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid#" onclick="window.location.href = &#39;/op/share/stumbleupon/n/5318767&#39;; return false;" target="_blank" class="left mr-10"><img src="./bg_3_files/stumbleupon.png" alt="Share"></a><div class="clear"></div><div class="mb-10"></div><h5>Grab this Badge Code</h5><input type="text" name="null" value="&lt;a href=&quot;http://www.colourlovers.com/pattern/5318767/Sorbet_Grid&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://www.colourlovers.com/images/badges/n/5318/5318767_Sorbet_Grid.png&quot; style=&quot;width: 240px; height: 120px; border: 0 none;&quot; alt=&quot;Sorbet_Grid&quot; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span style=&quot;font-size: 10px; color: #5e5e5e;&quot;&gt;&lt;a href=&quot;http://www.colourlovers.com/seamless-studio&quot; target=&quot;_blank&quot; style=&quot;font-size: 10px; color: #5e5e5e;&quot;&gt;Vector Patterns&lt;/a&gt; by &lt;a href=&quot;http://www.colourlovers.com/&quot; target=&quot;_blank&quot; style=&quot;font-size: 10px; color: #5e5e5e;&quot;&gt;COLOURlovers&lt;/a&gt;&lt;/span&gt;" onclick="this.select();" class="badge-text-field"><h5>Get this Pattern Image</h5><div class="wallpaper-links">						<script type="text/javascript">
+							//<![CDATA[
+							document.write("<" + "a href=\"/wallPaper/" + screen.width + "x" + screen.height + "/n/5318767/COLOURlovers.com-Sorbet_Grid.png\">Your Screen [" + screen.width + "x" + screen.height + "]<" + "\/a>");
+							//]]>
+						</script><a href="http://www.colourlovers.com/wallPaper/1920x1080/n/5318767/COLOURlovers.com-Sorbet_Grid.png">Your Screen [1920x1080]</a>
+<span class="slashes">//</span><a href="http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318767.png" target="_blank">Preview</a><span class="slashes">//</span><a href="http://www.colourlovers.com/wallPaper/320x480/n/5318767/COLOURlovers.com-Sorbet_Grid.png" target="_blank">iPhone</a><br><a href="http://www.colourlovers.com/wallPaper/390x300/n/5318767/COLOURlovers.com-Sorbet_Grid.png">390x300</a><span class="slashes">//</span><a href="http://www.colourlovers.com/wallPaper/800x600/n/5318767/COLOURlovers.com-Sorbet_Grid.png">800x600</a><span class="slashes">//</span><a href="http://www.colourlovers.com/wallPaper/1024x768/n/5318767/COLOURlovers.com-Sorbet_Grid.png">1024x768</a><span class="slashes">//</span><a href="http://www.colourlovers.com/wallPaper/1200x800/n/5318767/COLOURlovers.com-Sorbet_Grid.png">1200x800</a><span class="slashes">//</span><a href="http://www.colourlovers.com/wallPaper/1600x1200/n/5318767/COLOURlovers.com-Sorbet_Grid.png">1600x1200</a><div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div><h3 class="sub-panel-header">Favorited By</h3><div id="feature-favorites" class="sub-panel-dark" style="padding-bottom: 5px;"><div class="feature-detail-stats big-number-label left">
+<h4 class="mt-0">0</h4><h5>Favorites</h5></div>
+<a href="http://www.colourlovers.com/login?r=/op/add/favorite/n/5318767" class="big-white-pill-plus-btn right mr-10"><span style="background-color: #f1f1f1;"></span>Fave this Pattern</a><div class="clear"></div><div class="clear"></div></div><h3 class="sub-panel-header">Tags</h3><div class="sub-panel-dark category-tag-list" style="padding-bottom: 5px;">
+<div class="clear"></div>
+No tags, add some!<div class="clear"></div>
+</div><div id="right-col-license-5318767"><h3 class="sub-panel-header">Pattern License</h3><div class="sub-panel-dark pb-10 pr-10 right-col-license"><ul class="cc"><li><span class="license-icon by" title="Attribution required"></span><span class="text ulc">Credit must be given to <a href="http://www.colourlovers.com/lover/victoriawings/loveNote">victoriawings</a> &amp; <a href="http://www.colourlovers.com/lover/about_jade/loveNote">about_jade</a>.</span><span class="clear"></span></li><li><span class="license-icon nc" title="Commercial use not allowed"></span><span class="text ulc">Commercial use is not allowed.</span><span class="clear"></span></li><li><span class="license-icon sa" title="Share alike"></span><span class="text ulc">Derivative works are allowed, but must be shared with this license.</span><span class="clear"></span></li></ul><span class="cc-link ulc"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC-BY-NC-SA</a></span></div></div><h3 class="sub-panel-header">Latest Palettes</h3><span class="slashes">//</span><a href="http://www.colourlovers.com/palettes/search/new">View More ›</a><div class="sub-panel-dark right-col" style="padding-bottom: 5px;">
+<div class="list-83-50">
+<a href="http://www.colourlovers.com/palette/4236329/what_is_faster" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 29px; height: 50px; background-color: #0D33CD;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 4px; height: 50px; background-color: #0D65AF;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 2px; height: 50px; background-color: #0D9787;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 7px; height: 50px; background-color: #0DC955;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 41px; height: 50px; background-color: #0DFB19;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><a href="http://www.colourlovers.com/palette/4236328/cs" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 16px; height: 50px; background-color: #818385;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 16px; height: 50px; background-color: #36654A;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 16px; height: 50px; background-color: #F1592B;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 16px; height: 50px; background-color: #0E75BC;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 19px; height: 50px; background-color: #FECE06;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><a href="http://www.colourlovers.com/palette/4236327/canU_destroyCreation" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 29px; height: 50px; background-color: #D5340D;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 4px; height: 50px; background-color: #D5660D;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 2px; height: 50px; background-color: #D5980D;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 7px; height: 50px; background-color: #D5CA0D;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 41px; height: 50px; background-color: #D5FC0D;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><a href="http://www.colourlovers.com/palette/4236326/Swans_Flower_Sea" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 26px; height: 50px; background-color: #082B2C;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 11px; height: 50px; background-color: #6963D7;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 11px; height: 50px; background-color: #0D8885;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 19px; height: 50px; background-color: #FCF7FA;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 16px; height: 50px; background-color: #FFEAAB;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><a href="http://www.colourlovers.com/palette/4236325/canU_undoDestruction" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 29px; height: 50px; background-color: #BFFD0D;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 4px; height: 50px; background-color: #BFFD3F;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 2px; height: 50px; background-color: #BFFD71;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 7px; height: 50px; background-color: #BFFDA3;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 41px; height: 50px; background-color: #BFFDD5;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><a href="http://www.colourlovers.com/palette/4236324/canUBSameAfterChange" class="palette" style="width: 83px; height: 50px;"><span class="c" style="width: 29px; height: 50px; background-color: #C3FB26;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 4px; height: 50px; background-color: #C3C926;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 2px; height: 50px; background-color: #C39726;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 7px; height: 50px; background-color: #C36526;"><span class="s" style="margin-top: 45px;"></span></span>
+<span class="c" style="width: 41px; height: 50px; background-color: #C33326;"><span class="s" style="margin-top: 45px;"></span></span>
+</a><div class="clear"></div>
+</div><div class="clear"></div>
+</div><h3 class="sub-panel-header">Latest Patterns</h3><span class="slashes">//</span><a href="http://www.colourlovers.com/patterns/search/new">View More ›</a><div class="sub-panel-dark right-col" style="padding-bottom: 5px;">
+<div class="list-83-50">
+<a href="http://www.colourlovers.com/pattern/5318768/Swans_Flower_Sea" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318768.png);"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/pattern/5318767/Sorbet_Grid" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318767.png);"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/pattern/5318766/A_s_t_r_a_e_a" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318766.png);"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/pattern/5318765/Airy" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318765.png);"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/pattern/5318764/Flimgram" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318764.png);"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/pattern/5318763/test" class="pattern" style="background-image: url(http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318763.png);"><span style="height: 5px; margin-top: 45px;"></span></a><div class="clear"></div>
+</div><div class="clear"></div>
+</div><h3 class="sub-panel-header">Latest Colors</h3><span class="slashes">//</span><a href="http://www.colourlovers.com/colors/search/new">View More ›</a><div class="sub-panel-dark right-col" style="padding-bottom: 4px;">
+<div class="list-83-50">
+<a href="http://www.colourlovers.com/color/2267EF/%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C_cubase_7_%D1%80%D1%83%D1%81" class="color" style="background-color: #2267EF;"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/color/6BBA0A/Buy_accupril" class="color" style="background-color: #6BBA0A;"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/color/04AEA3/%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C_%D1%8F%D0%B2%D0%B0_%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8_%D0%BD%D0%B0" class="color" style="background-color: #04AEA3;"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/color/0DFB19/what_is_faster" class="color" style="background-color: #0DFB19;"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/color/0D65AF/what_is_faster" class="color" style="background-color: #0D65AF;"><span style="height: 5px; margin-top: 45px;"></span></a><a href="http://www.colourlovers.com/color/0D33CD/what_is_faster" class="color" style="background-color: #0D33CD;"><span style="height: 5px; margin-top: 45px;"></span></a><div class="clear"></div>
+</div><div class="clear"></div>
+</div></div><div class="clear"></div>
+</div></div>
+				<div id="ga-above-footer" style="margin: 30px auto -10px; width: 728px; height: 90px;"><script type="text/javascript">googletag.cmd.push(function() { googletag.display("ga-above-footer"); });</script><div id="google_ads_iframe_/16782057/CL_Leader_ROS_BTF_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16782057/CL_Leader_ROS_BTF_0" title="3rd party ad content" name="google_ads_iframe_/16782057/CL_Leader_ROS_BTF_0" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom;" src="./bg_3_files/saved_resource(4).html"></iframe></div><iframe id="google_ads_iframe_/16782057/CL_Leader_ROS_BTF_0__hidden__" title="" name="google_ads_iframe_/16782057/CL_Leader_ROS_BTF_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;&lt;html&gt;&lt;body style=&#39;background:transparent&#39;&gt;&lt;/body&gt;&lt;/html&gt;&quot;" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;" src="./bg_3_files/saved_resource(5).html"></iframe></div>
+<div class="footer-shell">
+<div class="footer">
+<div class="col">
+<h2><a href="http://www.colourlovers.com/browse" style="color: #cbb3b3;">Browse</a></h2>
+<ul style="color: #998787;"><li><div></div><a href="http://www.colourlovers.com/colors">Colors</a></li><li><div></div><a href="http://www.colourlovers.com/palettes">Palettes</a></li><li><div></div><a href="http://www.colourlovers.com/patterns">Patterns</a></li><li><div></div><a href="http://www.colourlovers.com/shapes">Shapes</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/create" style="color: #cbbfb3;">Create</a></h2>
+<ul style="color: #999087;"><li><div></div><a href="http://www.colourlovers.com/palettes/add">Palettes</a></li><li><div></div><a href="http://www.colourlovers.com/patterns/add">Patterns</a></li><li><div></div><a href="http://www.colourlovers.com/colors/add">Colors</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/community" style="color: #cbc6b3;">Community</a></h2>
+<ul style="color: #999587;"><li><div></div><a href="http://www.colourlovers.com/forums">Forums</a></li><li><div></div><a href="http://www.colourlovers.com/groups">Groups</a></li><li><div></div><a href="http://www.colourlovers.com/lovers">Lovers</a></li><li><div></div><a href="http://www.colourlovers.com/blog">Blog</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/channels" style="color: #c8cbb3;">Channels</a></h2>
+<ul style="color: #979987;"><li><div></div><a href="http://www.colourlovers.com/craft">Craft</a></li><li><div></div><a href="http://www.colourlovers.com/digital-art">Digital Art</a></li><li><div></div><a href="http://www.colourlovers.com/fashion">Fashion</a></li><li><div></div><a href="http://www.colourlovers.com/home">Home</a></li><li><div></div><a href="http://www.colourlovers.com/print">Print</a></li><li><div></div><a href="http://www.colourlovers.com/web">Web</a></li><li><div></div><a href="http://www.colourlovers.com/wedding">Wedding</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/trends" style="color: #b3cbb3;">Trends</a></h2>
+<ul style="color: #879987;"><li><div></div><a href="http://www.colourlovers.com/digital-art/trends/branding">Branding</a></li><li><div></div><a href="http://www.colourlovers.com/craft/trends/handmade">Handmade</a></li><li><div></div><a href="http://www.colourlovers.com/home/trends/interior-looks">Interior Looks</a></li><li><div></div><a href="http://www.colourlovers.com/print/trends/magazines">Magazines</a></li><li><div></div><a href="http://www.colourlovers.com/fashion/trends/street-fashion">Street Fashion</a></li><li><div></div><a href="http://www.colourlovers.com/web/trends/websites">Websites</a></li><li><div></div><a href="http://www.colourlovers.com/wedding/trends/wedding-invites">Wedding Invites</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/tools" style="color: #b3c1cb;">Tools</a></h2>
+<ul style="color: #879199;"><li><div></div><a href="http://www.colourlovers.com/seamless">Seamless Lite</a></li><li><div></div><a href="http://www.colourlovers.com/themeleon">Themeleon</a></li><li><div></div><a href="http://www.colourlovers.com/photocopa">PHOTOCOPA</a></li><li><div></div><a href="http://www.colourlovers.com/copaso/ColorPaletteSoftware">COPASO</a></li></ul>
+</div>
+<div class="col">
+<h2><a href="http://www.colourlovers.com/store" style="color: #b7b3cb;">About</a></h2>
+<ul style="color: #8a8799;"><li><div></div><a href="http://www.colourlovers.com/partners">Advertise</a></li><li><div></div><a href="http://www.colourlovers.com/about">About Us</a></li><li><div></div><a href="http://www.colourlovers.com/contact">Contact Us</a></li><li><div></div><a href="http://www.colourlovers.com/privacy">Privacy</a></li><li><div></div><a href="http://www.colourlovers.com/terms">Terms</a></li><li><div></div><a href="http://www.colourlovers.com/group/Sharing_the_Love">FAQ</a></li></ul>
+</div>
+<div class="clear"></div>
+<div class="bottom-copy">
+<div class="left">
+<strong>© 2016 Creative Market Labs, Inc. All Rights Reserved</strong>
+<a href="http://www.colourlovers.com/privacy">Privacy</a><strong style="display: inline;"> - </strong><a href="http://www.colourlovers.com/terms">Terms of Use</a>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+	buildAjaxUpdaterRequest('feature-favorites','n/5318767',1);
+//]]>
+</script>
+
+<!-- f4fd34e68d5229d2e9078b211fb146e63ce247e9;PROD;web01;10.16.59.132;103 -->
+
+<div id="cl-overlay-content" class="cl-overlay-content" style="width: 1618px; height: 835px; top: 65px; left: 65px; background: url(&quot;http://colourlovers.com.s3.amazonaws.com/images/patterns/5318/5318767.png?1462488433&quot;) 50% 50% transparent;"></div><div id="cl-overlay" class="cl-overlay" style="opacity: 0.8; height: 2271px;"></div></body></html>
