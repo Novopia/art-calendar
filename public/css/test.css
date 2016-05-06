@@ -96,8 +96,8 @@ body a{
 
 .csstransforms3d .grid-item .front {
   /* styling */
-  border: 1px solid #ccc;
-  -webkit-transform: rotateX(0deg) rotateY(0deg);
+/*  border: 1px solid #ccc;
+*/  -webkit-transform: rotateX(0deg) rotateY(0deg);
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   -moz-transform: rotateX(0deg) rotateY(0deg);
@@ -140,8 +140,8 @@ body a{
 
 .csstransforms3d .grid-item .back {
   /* styling */
-  border: 1px solid #e8e8e8;
-  padding-top: 0;
+/*  border: 1px solid #e8e8e8;
+*/  padding-top: 0;
   /* overwrites the fallback when supported */
   -webkit-transform: rotateY(-180deg);
   -webkit-transform-style: preserve-3d;
@@ -158,12 +158,14 @@ body a{
   -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   overflow-y: scroll;
+  border-radius: 10px;
 
 }
 
 .csstransforms3d .grid-item.flip .back {
   -webkit-transform: rotateX(0deg) rotateY(0deg);
   -moz-transform: rotateX(0deg) rotateY(0deg);
+  border-radius: 10px;
 }
 
 .front img{
@@ -246,13 +248,13 @@ body a{
 
 
 .grid-item .at-sign{
-  color:#003459;
+  color:rgba(81,39,89,0.9);
 }
 
 .grid-item .tag{
   margin-top: 8px;
   margin-bottom: 8px;
-  color:rgba( 52, 63, 91,0.8);
+  color:rgba( 52, 63, 91,0.99);
   font-size: 16px;
 }
 
@@ -262,7 +264,7 @@ body a{
 }
 
 .grid-item .tag .fa{
-  color: #006494;
+  color: rgba(81,39,89,0.7);
 }
 
 .grid-item .day{
@@ -582,7 +584,7 @@ margin-top: 100px;
 #result{
   width: 100%;
   height: 53px;
-  background-color: #5BC0BE;
+  background-color: #d799b8;
   position:absolute;
   top:-100px;
   text-align: center;

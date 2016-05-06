@@ -28,8 +28,8 @@
 
  <body>
 
-<!--   	<div id = "cover"></div>
- -->
+  	<div id = "cover"></div>
+
  	<div id="result"></div>
  	<div id="nav_bar">
  		<div id="month">

@@ -171,9 +171,7 @@ $(document).ready(function(){
 		}
 
 		prev_click = $(this).text();
-		//$("footer").css('top',$('#cards').height()+250);
-		console.log($(window).height());
-		console.log($("#cards").height());
+
 
 		resize_footer();
 		
@@ -217,7 +215,13 @@ $(document).ready(function(){
     	$.post('/month/'+y_m, function(response){
     		console.log(response);
     		remove_items();
-    		show_result(response.rows.length);
+    		if (response == "No results for the month"){
+    			show_result(0);
+    		} else{
+    			
+    			show_result(response.rows.length);
+    		}
+    		
     	})
     })
 
@@ -240,6 +244,11 @@ $(document).ready(function(){
 		    	$.post("/search", toSend, function(response){
 			      	console.log(response);
 			      	remove_items();
+			      	if (response == "No results"){
+		    			show_result(0);
+		    		} else{
+		    			show_result(response.rows.length);
+		    		}
 			    });
 		    }
 		});
@@ -266,6 +275,11 @@ $(document).ready(function(){
 });
 
 
+function render_events(){
+
+}
+
+
 function resize_footer(){
 	var white_space = $(window).height()-$("#cards").height()-123;
 
@@ -290,17 +304,24 @@ function remove_items(){
 }
 
 function show_result(num){
-	var msg = "<p>We have crafted " + num + " events for you.</p>"
+	if (num == 0) {
+		var msg = "<p>We have not found any event yet.</p>";
+		$('#result').css({'background-color':"#7d7384"});
+	} else{
+		var msg = "<p>We have brought " + num + " events for you.</p>";
+		$('#result').css({'background-color':"#d799b8"});
+	}
+	
 	$('#result').html(msg);
 
-	$('#result').css({'top':"0px"})
+	$('#result').css({'top':"0px"});
 	$('#result').addClass("animated flipInX");
 
 	setTimeout(function(){
 		$('#result').css({'top':"-100px"});
 		$('#result').removeClass("animated flipInX");
 		$('#result p').empty();
-	},3000);
+	},2000);
 
 
 }
