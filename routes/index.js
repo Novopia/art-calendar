@@ -8,23 +8,48 @@ router.get('/', function(req, res, next) {
     res.render('front_end/home');
 });
 
-router.post('/month/:yearMonth', function(req, res, next) {
-    var yearMonth = req.params.yearMonth;
-    if (yearMonth.length != 6) {
-        res.json("ERROR: yearMonth has to be in the format of 201604");
+//router.post('/month/:yearMonth', function(req, res, next) {
+//    var yearMonth = req.params.yearMonth;
+//    if (yearMonth.length != 6) {
+//        res.json("ERROR: yearMonth has to be in the format of 201604");
+//    }
+//    // e.g.: yearMonth is 201605
+//    var start = yearMonth.concat("00");
+//    var startDay = parseInt(start);
+//    var end = yearMonth.concat("31");
+//    var endDay = parseInt(end);
+//    if (startDay == NaN || endDay == NaN) {
+//        res.json("ERROR: yearMonth has to be in the format of 201604");
+//    }
+//    conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4)",
+//        [startDay, endDay, startDay, endDay], function(err, result){
+//            var rowCount = result.rowCount;
+//            console.log(rowCount);
+//            if (rowCount == 0) {
+//                res.json("No results for the month");
+//            } else if (!err) {
+//                res.json(result);
+//            } else {
+//                res.json("ERROR OCCURED!");
+//            }
+//        });
+//});
+
+router.post('/month/:yearMonthDay', function(req, res, next) {
+    var yearMonthDay = req.params.yearMonthDay;
+    if (yearMonthDay.length != 8) {
+        res.json("ERROR: yearMonthDay has to be in the format of 20160421");
     }
-    // e.g.: yearMonth is 201605
-    var start = yearMonth.concat("00");
-    var startDay = parseInt(start);
-    var end = yearMonth.concat("31");
-    var endDay = parseInt(end);
-    if (startDay == NaN || endDay == NaN) {
-        res.json("ERROR: yearMonth has to be in the format of 201604");
+    // e.g.: yearMonth is 20160506
+    var startDay = parseInt(yearMonthDay);
+    console.log("yearmonthday is " +yearMonthDay);
+    if (startDay == NaN ) {
+        res.json("ERROR: yearMonthDay has to be in the format of 201604");
     }
-    conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4)",
-        [startDay, endDay, startDay, endDay], function(err, result){
+    conn.query("SELECT * FROM calendar WHERE start_date >= $1 or end_date >= $2 ORDER BY start_date, start_time " +
+        "LIMIT 20",
+        [startDay, startDay], function(err, result){
             var rowCount = result.rowCount;
-            console.log(rowCount);
             if (rowCount == 0) {
                 res.json("No results for the month");
             } else if (!err) {
