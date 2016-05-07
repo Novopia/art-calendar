@@ -84,13 +84,19 @@ $(document).ready(function(){
 
 	var year = new Date().getFullYear();
 	var month = new Date().getMonth()+1;
+	var date = new Date().getDate();
+	//console.log(date);
 	if (month<10){
 		month = "0"+month;
 	}
 
-	var year_mon = year + month;
+	if (date<10){
+		date = "0"+date;
+	}
+
+	var year_mon = year + month + date;
 	
-    $.post('/month/'+year_mon, function(response){
+    $.post('/day/'+year_mon, function(response){
 		console.log(response);
 		if (response == "No results for the month"){
 			//show_result(0);
