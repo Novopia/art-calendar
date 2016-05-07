@@ -246,7 +246,11 @@ body a{
 }
 
 
-
+.grid-item .event-name a{
+  color:black;
+  
+  font-weight: 600;
+}
 .grid-item .at-sign{
   color:rgba(81,39,89,0.9);
 }
