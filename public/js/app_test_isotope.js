@@ -21,6 +21,8 @@ $(document).ready(function(){
 
 
 	var win_width_orig = $(window).width();
+	var logo_left = (win_width_orig / 2.0 - 108) + "px";
+
 	var win_width = win_width_orig*0.8;
 	var num = Math.floor(win_width/260);
 	var width = Math.min(num*260,1300) + 0;
@@ -35,10 +37,18 @@ $(document).ready(function(){
 	$('#filter').css('margin-right', margin);
 	$('#filter_content').css('right', margin);
 	$('#month').css('transition','0.2s ease-out');
+	$('#title').css('left',logo_left);
 
+	$('#title').click(function(){
+		location.reload();
+	})
 
 	$( window ).resize(function() {
 		var win_width_orig = $(window).width();
+
+		var logo_left = (win_width_orig / 2.0 - 108) + "px";
+
+		console.log(logo_left);
 		var win_width = win_width_orig*0.8;
 		var num = Math.floor(win_width/260);
 		var width = Math.min(num*260,1300) + 0;
@@ -53,6 +63,8 @@ $(document).ready(function(){
 		$('#month').css('margin-left',search_margin);
 		$('#filter').css('margin-right', search_margin);
 		$('#filter_content').css('right', search_margin);
+
+		$('#title').css('left',logo_left);
 		//
 	})
 
