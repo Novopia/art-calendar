@@ -354,6 +354,15 @@ nav ul li a{
 }
 
 
+#title{
+  position: absolute;
+  height: 53px;   
+}
+
+#title:hover{
+  cursor: pointer;
+}
+
 
 
 nav ul li a:hover{
@@ -596,6 +605,7 @@ margin-top: 100px;
   opacity: 1;
   font-size: 20px;
   color:white;
+  z-index: 100;
 }
 
 #result p{
