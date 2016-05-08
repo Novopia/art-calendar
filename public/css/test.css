@@ -356,7 +356,11 @@ nav ul li a{
 
 #title{
   position: absolute;
-  height: 53px;   
+  height: 53px; 
+  font-size: 20px;
+  font-family: "Merienda";
+  color:white;
+  padding:12px;  
 }
 
 #title:hover{

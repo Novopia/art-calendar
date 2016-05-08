@@ -50,8 +50,8 @@
 			<span class="months">12</span>
  		</div>
 
- 		<img id="title" src="images/logo.png">
-
+<!--  		<img id="title" src="images/logo.png">
+ --> 		<div id="title">Atistical @ Brown</div>
  		<div id="filter">
  			<span>Filter</span>
  		</div>
