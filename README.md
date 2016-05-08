@@ -9,8 +9,12 @@ node bin/www
 
 * home:
 
-localhost:3000/home
+localhost:3000/
 
 * upload:
 
 localhost: 3000/upload
+
+* remove:
+
+localhost: 3000/remove

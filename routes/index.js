@@ -21,8 +21,9 @@ router.post('/month/:yearMonth', function(req, res, next) {
    if (startDay == NaN || endDay == NaN) {
        res.json("ERROR: yearMonth has to be in the format of 201604");
    }
-   conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4)",
-       [startDay, endDay, startDay, endDay], function(err, result){
+   conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4) " +
+       "or (start_date <= $5 and end_date >= $6)",
+       [startDay, endDay, startDay, endDay, startDay, endDay], function(err, result){
            var rowCount = result.rowCount;
            console.log(rowCount);
            if (rowCount == 0) {
