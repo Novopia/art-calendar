@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 
 	var win_width_orig = $(window).width();
-	var logo_left = (win_width_orig / 2.0 - 108) + "px";
+	var logo_left = (win_width_orig / 2.0 - 100) + "px";
 
 	var win_width = win_width_orig*0.8;
 	var num = Math.floor(win_width/260);
@@ -46,7 +46,7 @@ $(document).ready(function(){
 	$( window ).resize(function() {
 		var win_width_orig = $(window).width();
 
-		var logo_left = (win_width_orig / 2.0 - 108) + "px";
+		var logo_left = (win_width_orig / 2.0 - 100) + "px";
 
 		console.log(logo_left);
 		var win_width = win_width_orig*0.8;
@@ -221,6 +221,8 @@ $(document).ready(function(){
     $('#month').click(function(){
 
     	if (click_month%2==0){
+    		$('#title').hide();
+
     		$('#month').css({'width': '500px','color':'rgba( 52, 63, 91,0.8)','background-color': 'rgba(240,240,240,0.8)'});
     		
     		setTimeout(function(){
@@ -232,10 +234,16 @@ $(document).ready(function(){
     			$('#search').css('display','none');
     		}
     	} else{
+    		
     		$('#month').css({'width': '61px','background-color': 'rgba(250,250,250,0.0)','color':'white'});
     		$('.months').css("display",'none');
-    		$('#filter').css('display','block');
-    		$('#search').css('display','block');
+    		
+    		setTimeout(function(){
+    			$('#title').show();
+	    		$('#filter').css('display','block');
+	    		$('#search').css('display','block');
+    		},200);
+			
     	}
     	click_month += 1;
     });
@@ -268,13 +276,18 @@ $(document).ready(function(){
 
     $('#search').focusout(function(){
     	$('#search').val('');
-    	$('#month').css('display','block');
+    	setTimeout(function(){
+    		$('#month').css('display','block');
+    		$('#title').show();
+    	},300)
+    	
     });
 
     $('#search').focusin(function(){
     	if ($(window).width()<975){
     		$('#month').css('display','none');
     	}
+    	$('#title').hide();
     	$('#search').keyup(function(e) {
 		    if(e.which == 13) {
 		    	var searchMsg = $('#search').val();
