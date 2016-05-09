@@ -96,7 +96,7 @@
  
 	</div>
 
-	<footer>
+	<!-- <footer>
 		<p id="footer_1">Developed for art-savvy Brunonians</p>
 		<div id="last_footer">
 			<p>ArtistiCal @ Brown shares campus art events.</p>
@@ -105,7 +105,7 @@
 			<p>Developed by Tom Yao, Ting Xia, and Zitao Quan.</p>
 			<p>&#xa9 2016</p>
 		</div>
-	</footer>
+	</footer> -->
 
  </body>
 </html>

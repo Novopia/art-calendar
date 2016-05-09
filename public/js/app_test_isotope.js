@@ -405,6 +405,7 @@ function render_events(rows){
 
 		var event_title = event.event_title;
 
+
 		to_render += "<div class='grid-item " + event_type_1 + " " + event_type_2+"'>"
 					+ "<div class='front'>"
 					+ "<img src='" + url + "'>"
@@ -424,7 +425,7 @@ function render_events(rows){
 					+ "<hr>" + "<p class='tag'>" 
 					+ "<i class='fa fa-tags'></i>"
 					+ "<span class='tag-span genre'>#" + event_type_1 + "</span>" + "<span class='tag-span genre'>#" + event_type_2 + "</span>"
-					+ "</p>" + "<hr>" + "<i class='fa fa-calendar-plus-o'></i>"
+					+ "</p>" + "<hr>"
 					+ "<p class='day'>"+start_day_stamp+"</p>"
 					+ "</div>"
 					+ "<div class='back'>"
@@ -459,41 +460,8 @@ function render_events(rows){
      	});
      	$container.isotope('layout');
     });
-		
-	// 	$container.isotope( 'appended', $items ).isotope("layout");
-	// 	//$container.masonry('appended', $items);
-
-	// 	$container.masonry('layout');
-		
-	// 	console.log( Masonry.data('#cards'));
-	// 	console.log("height");
-	// 	console.log($('#cards').height())
-	// 	//isFetchingPics = false; 
-	// }); 
-	
-	// jQuery(window).load(function(){
-
-		// $.each($('.grid-item'), function(){
-  //    		var front = $(".front");
-
-  //           var children = $(this).children('div');
-  //           var front = children[0];
-
-  //           var objHeight = $(this).children('div').height();
-
-  //           $(this).height(objHeight);
-
-  //           var back = $(".back");
-  //           $(this).find(back).height(objHeight);
-  //           console.log(objHeight)
-
-  //    	});
-	
-	// });
 
 		
-
-	
 
 	//setTimeout(function(){$container.masonry()},2000);
 }
