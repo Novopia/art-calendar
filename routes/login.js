@@ -10,6 +10,11 @@ router.get('/:action', function(req, res, next) {
     res.render('login', { title: 'login', actionAfterLogin: action});
 });
 
+// Since we only have one user who needs to login, we
+// hard coded her username and password. We used the
+// session middleware introduced to us in the security lab,
+// and admittedly, if security were a bigger concern of our
+// client, we could have switched to passport.js.
 router.post('/validityCheck', function(req, res, next) {
     console.log("inside validity check");
     var userName = req.body.userName,
