@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+	console.log("Front-end and design by Hong Qian. Back-end developed by Tom Yao, Ting Xia and Zitao Quan. Project lead by Luyuan Xing.");
 	///
 	/// Basic page layout setup
 
@@ -27,7 +27,6 @@ $(document).ready(function(){
 	var width = Math.min(num*260,1300) + 0;
 
 	var margin = (win_width_orig - width)/2 + 10 + "px";
-	var filter_margin = 
 	width += "px"
 	$('#cards').css('width',width);
 	$('#month').css('margin-left',margin);
@@ -64,6 +63,7 @@ $(document).ready(function(){
 
 		$('#title').css('left',logo_left);
 		//
+		//resize_footer();
 	})
 
 
@@ -142,12 +142,27 @@ $(document).ready(function(){
      });
 	
 		$container.isotope("layout");
-		$("footer").css('display','block');
+		//$("footer").css('display','block');
 	});
 
 
 
 
+	<!-- AddEvent Settings -->
+		window.addeventasync = function(){
+		    addeventatc.settings({
+		        license    : "00000000000000000000",
+		        mouse      : false,
+		        css        : true,
+		        outlook    : {show:false, text:"Outlook"},
+		        google     : {show:true, text:"Google <em>(online)</em>"},
+		        yahoo      : {show:false, text:"Yahoo <em>(online)</em>"},
+		        outlookcom : {show:true, text:"Outlook.com <em>(online)</em>"},
+		        appleical  : {show:true, text:"Apple Calendar"},
+		        facebook   : {show:true, text:"Facebook Event"},
+		        dropdown   : {order:"outlookcom,google,appleical"}
+		    });
+		};
 
 
     //////
@@ -186,7 +201,7 @@ $(document).ready(function(){
 		prev_click = $(this).text();
 
 
-		resize_footer();
+		//resize_footer();
 		
 	});
 
@@ -262,7 +277,7 @@ $(document).ready(function(){
     	$('#search').keyup(function(e) {
 		    if(e.which == 13) {
 		    	var searchMsg = $('#search').val();
-		    	var toSend = {searchMsg: searchMsg};
+		    	var toSend = {searchMsg: searchMsg,date:year_mon};
 		    	$.post("/search", toSend, function(response){
 			      	remove_items();
 			      	if (response == "No results"){
@@ -301,8 +316,10 @@ function render_events(rows){
 
 	var to_render = "";
 
+
 	var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 	var months = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'];
+	var months_full = ['January','January',	'February',	'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November', 'December'];
 	var num_concact = ['none','1st','2nd','3rd',"4th","5th","6th","7th","8th","9th","10th","11th","12th","13th","14th","15th","16th","17th","18th","19th","20th","21st","22nd","23rd","24th","25th","26th","27th","28th","29th","30th","31st"]
 	for (var i = 0; i<rows.length;i++){
 		
@@ -320,8 +337,15 @@ function render_events(rows){
 		var start_month = parseInt(start_date.substring(4,6))-1;
 		var start_day = parseInt(start_date.substring(6,8));
 
+		var end_date = event.end_date.toString();
+
+		var end_day = parseInt(end_date.substring(6,8));
+
 		var start_day_obj = new Date(start_year,start_month,start_day);
 		
+		
+		
+
 		//need		
 		var start_month_string = months[start_day_obj.getMonth()];
 		var start_date_string = days[start_day_obj.getDay()];
@@ -332,8 +356,6 @@ function render_events(rows){
 		var start_hour = parseInt(start_time.substring(0,2));
 
 		var start_minute = start_time.substring(2,4);
-
-
 
 		var start_suffix = start_hour >= 12 ? " PM":" AM"; 
 		
@@ -348,15 +370,10 @@ function render_events(rows){
 		var start_string_whole = start_date_string +", " + start_month_string + " " + start_day + ", " + start_hour_parsed;
 
 
+		
+
+
 		if (event.start_date != event.end_date){
-
-			var end_date = event.end_date.toString();
-			var end_year = end_date.substring(0,4);
-			var end_month = parseInt(end_date.substring(4,6))-1;
-			var end_day = parseInt(end_date.substring(6,8));
-
-			var end_day_obj = new Date(end_year,end_month,end_day);
-			
 			//need		
 			var start_day_stamp = num_concact[parseInt(start_day)] + " - "+num_concact[parseInt(end_day)];
 		}
@@ -374,6 +391,8 @@ function render_events(rows){
 		var event_title = event.event_title;
 
 
+
+
 		to_render += "<div class='grid-item " + event_type_1 + " " + event_type_2+"'>"
 					+ "<div class='front'>"
 					+ "<img src='" + url + "'>"
@@ -386,6 +405,42 @@ function render_events(rows){
 			event_title = "<a href='" +link+ "' target='_blank'>" + event_title +"</a>";
 		}
 
+
+		//important to create google calendar link
+		
+		var organization = event.department;
+
+		var calendar_start_month = start_date.substring(4,6);
+		var calendar_start_day = start_date.substring(6,8);
+		var calendar_start_year = start_date.substring(0,4);
+
+		var calendar_start_time = event.start_time;
+
+		var calendar_start_string = calendar_start_month+"/"+calendar_start_day+"/"+calendar_start_year+" "+calendar_start_time;
+
+		var end_date = event.end_date.toString();
+
+		var calendar_end_month = end_date.substring(4,6);
+		var calendar_end_day = end_date.substring(6,8);
+		var calendar_end_year = end_date.substring(0,4);
+
+		var calendar_end_time = event.end_time;
+
+		var calendar_end_string = calendar_end_month+"/"+calendar_end_day+"/"+calendar_end_year+" "+calendar_end_time;
+
+
+
+		var calendar_span = "<span title='Add to Calendar' class='addeventatc' data-direct='google' data-dropdown-x='left' data-dropdown-y='up'>"
+							+ "<span class='start'>" + calendar_start_string + "</span>"
+				    		+ "<span class='end'>" + calendar_end_string + "</span>"
+				    		+ "<span class='timezone'>America/New_York</span>"
+				    		+ "<span class='title'>" + event.event_title +"</span>"
+				    		+ "<span class='description'>" + event_description +"</span>"
+				    		+ "<span class='location'>" + location +"</span>"
+				  			+ "<span class='organizer'>"+ organization + "</span>"
+						    + "<span class='date_format'>" + "MM/DD/YYYY</span>";
+							+ "</span>";
+
 		to_render += event_title + "</p>" 
 					+ "<p class='date_location'>" + start_string_whole 
 					+ "<span class='at-sign'> @ </span>"
@@ -394,13 +449,12 @@ function render_events(rows){
 					+ "<i class='fa fa-tags'></i>"
 					+ "<span class='tag-span genre'>#" + event_type_1 + "</span>" + "<span class='tag-span genre'>#" + event_type_2 + "</span>"
 					+ "</p>" + "<hr>"
-					+ "<p class='day'>"+start_day_stamp+"</p>"
+					+ "<p class='day'>"+start_day_stamp+"</p>" + calendar_span
 					+ "</div>"
 					+ "<div class='back'>"
 					+ "<p class='detail'>"
 					+ event_description
 					+ "</p></div></div>"			
-
 	}
 
 	var $items = $( to_render );
@@ -424,7 +478,10 @@ function render_events(rows){
 
      	});
      	$container.isotope('layout');
+     	//resize_footer();
     });
+
+    addeventatc.refresh()
 
 }
 
@@ -435,9 +492,9 @@ function resize_footer(){
 
 		if (white_space > 300){
 			var m_t = white_space - 200;
-			$("footer").css('margin-top',m_t);
+			$("footer").css('bottom',-m_t+"px");
 		} else{
-			$("footer").css('margin-top','100px');
+			$("footer").css('bottom','-120px');
 		}
 }
 
@@ -447,7 +504,7 @@ function remove_items(){
 	var it = $('.grid-item').slice(1);
 	$container.isotope('remove',it).isotope("layout");
 	//$container.masonry();
-	resize_footer();
+	//resize_footer();
 }
 
 function show_result(num){

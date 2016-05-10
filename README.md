@@ -6,20 +6,16 @@ Our suggestion is to remove the node_modules and do "npm install". The tricky pa
 "sharp" module. It requires libvips which is a system library. "npm install sharp" should install
 it for you if you have enough permission. Otherwise, you probably need to install it manually.
 
+For more details, you might want to visit http://sharp.dimens.io/en/stable/.
+
 #Run: 
 
 node bin/www
 
 #View:
 
-* home:
+* application home: localhost:3000/
 
-localhost:3000/
+* admin upload events to pages: localhost: 3000/upload
 
-* upload:
-
-localhost: 3000/upload
-
-* remove:
-
-localhost: 3000/remove
+* admin remove events: localhost: 3000/remove

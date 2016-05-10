@@ -18,12 +18,16 @@ router.post('/month/:yearMonth', function(req, res, next) {
    var startDay = parseInt(start);
    var end = yearMonth.concat("31");
    var endDay = parseInt(end);
+
+   console.log(startDay);
+   console.log(endDay);
    if ( isNaN(startDay)  || isNaN(endDay) ) {
        res.json("ERROR: yearMonth has to be in the format of 201604");
    }
    conn.query("SELECT * FROM calendar WHERE (start_date >= $1 and start_date <= $2) or (end_date >= $3 and end_date <= $4) " +
-       "or (start_date <= $5 and end_date >= $6)",
-       [startDay, endDay, startDay, endDay, startDay, endDay], function(err, result){
+       "ORDER BY start_date, start_time",
+       [startDay, endDay, startDay, endDay], function(err, result){
+           console.log(err);
            var rowCount = result.rowCount;
            console.log(rowCount);
            if (rowCount == 0) {
@@ -64,13 +68,18 @@ router.post('/day/:yearMonthDay', function(req, res, next) {
 router.post('/search', function(req, res, next) {
     //var word = req.params.word;
     var searchMsg = req.body.searchMsg;
+    var date = parseInt(req.body.date);
+    console.log(date)
     var toDB = "%"+searchMsg+"%";
     // COLLATE UTF8_GENERAL_CI should make search case insensitive.
-    conn.query("SELECT * FROM calendar WHERE event_title COLLATE UTF8_GENERAL_CI LIKE $1 UNION " +
+    conn.query( "SELECT * FROM" +
+        "(SELECT * FROM calendar WHERE event_title COLLATE UTF8_GENERAL_CI LIKE $1 UNION " +
         "SELECT * FROM calendar WHERE event_description COLLATE UTF8_GENERAL_CI LIKE $2 UNION " +
         "SELECT * FROM calendar WHERE event_type COLLATE UTF8_GENERAL_CI LIKE $3 UNION " +
         "SELECT * FROM calendar WHERE location COLLATE UTF8_GENERAL_CI LIKE $4 UNION " +
-        "SELECT * FROM calendar WHERE department COLLATE UTF8_GENERAL_CI LIKE $5", [toDB, toDB, toDB, toDB, toDB], function (err, result) {
+        "SELECT * FROM calendar WHERE department COLLATE UTF8_GENERAL_CI LIKE $5)" + 
+        "where end_date >= $6 ORDER BY start_date, start_time", [toDB, toDB, toDB, toDB, toDB, date], function (err, result) {
+        console.log(err)
         var rowCount = result.rowCount;
         console.log("there are " + rowCount + "search results");
         if (rowCount == 0) {
