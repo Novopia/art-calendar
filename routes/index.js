@@ -42,6 +42,10 @@ router.post('/month/:yearMonth', function(req, res, next) {
 
 router.post('/day/:yearMonthDay', function(req, res, next) {
     var yearMonthDay = req.params.yearMonthDay;
+    var start_limit = req.body.start_limit;
+
+    console.log(start_limit);
+
     if (yearMonthDay.length != 8) {
         res.json("ERROR: yearMonthDay has to be in the format of 20160421");
     }
@@ -52,9 +56,10 @@ router.post('/day/:yearMonthDay', function(req, res, next) {
         res.json("ERROR: yearMonthDay has to be in the format of 201604");
     }
     conn.query("SELECT * FROM calendar WHERE start_date >= $1 or end_date >= $2 ORDER BY start_date, start_time " +
-        "LIMIT 20",
-        [startDay, startDay], function(err, result){
+        "LIMIT $3, $4",
+        [startDay, startDay,start_limit,start_limit+20], function(err, result){
             var rowCount = result.rowCount;
+            console.log(rowCount + " events")
             if (rowCount == 0) {
                 res.json("No results for the month");
             } else if (!err) {

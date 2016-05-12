@@ -1,3 +1,5 @@
+start_limit = 0;
+
 $(document).ready(function(){
 
 	console.log("Front-end and design by Hong Qian. Back-end developed by Tom Yao, Ting Xia and Zitao Quan. Project lead by Luyuan Xing.");
@@ -96,14 +98,27 @@ $(document).ready(function(){
 	}
 
 	var year_mon = year + month + date;
-	
-    $.post('/day/'+year_mon, function(response){
+
+    $.post('/day/'+year_mon, {start_limit:start_limit},function(response){
 		if (response == "No results for the month"){
 			show_result(0);
+			disable_continue_browsing();
 		} else{
-			render_events(response.rows);
+			render_events(response.rows,true);	
 		}
 		
+	})
+
+	$(document).on("click","#continue_browsing",function(){
+		start_limit+=20;
+		$.post('/day/'+year_mon, {start_limit:start_limit},function(response){
+			if (response == "No results for the month"){
+				show_result(0);
+				disable_continue_browsing;
+			} else{
+				render_events(response.rows,false);		
+			}
+		})
 	})
 
 
@@ -187,6 +202,10 @@ $(document).ready(function(){
 			$container.isotope({ filter: '*' });
 			$container.isotope('layout');
 
+			if (!$("#continue_browsing").is(":disabled")){
+				enable_continue_browsing();
+			}
+
 		} else{
 			repeat=0;
 			$('.grid-item .genre').css('color','rgba( 52, 63, 91,0.8)');
@@ -196,6 +215,9 @@ $(document).ready(function(){
 
 			$('#filter_content .genre').css({'background-color':'rgba( 52, 63, 91,0.8)','color':'white'});
 			$(this).css({'background-color':'white','color':'rgba( 52, 63, 91,0.4)'});
+
+			disable_continue_browsing();
+
 		}
 
 		prev_click = $(this).text();
@@ -250,9 +272,11 @@ $(document).ready(function(){
     		remove_items();
     		if (response == "No results for the month"){
     			show_result(0);
+    			disable_continue_browsing();
     		} else{
     			show_result(response.rows.length);
-    			render_events(response.rows);
+    			render_events(response.rows,true);
+    			disable_continue_browsing();
     		}
     		
     	})
@@ -282,9 +306,11 @@ $(document).ready(function(){
 			      	remove_items();
 			      	if (response == "No results"){
 		    			show_result(0);
+		    			disable_continue_browsing();
 		    		} else{
 		    			show_result(response.rows.length);
-		    			render_events(response.rows);
+		    			render_events(response.rows,true);
+		    			disable_continue_browsing();
 		    		}
 			    });
 		    }
@@ -312,7 +338,25 @@ $(document).ready(function(){
 });
 
 
-function render_events(rows){
+function disable_continue_browsing(){
+	$('#continue_browsing').prop("disabled",true);
+}
+
+function enable_continue_browsing(){
+	$('#continue_browsing').prop("disabled",false);
+}
+
+function check_continue_browsing(rows){
+	if (rows.length !=20){
+		$('#continue_browsing').prop("disabled",true);
+	}
+}
+
+function render_events(rows,remove){
+
+	check_continue_browsing(rows);
+
+	console.log(rows.length);
 
 	var to_render = "";
 
@@ -458,7 +502,11 @@ function render_events(rows){
 	}
 
 	var $items = $( to_render );
-	remove_items();
+
+	if(remove){
+		remove_items();
+	}
+	
 
 	$container.append($items).isotope('appended', $items).imagesLoaded().progress( function(){ 
 
